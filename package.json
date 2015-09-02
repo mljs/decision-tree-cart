@@ -1,0 +1,38 @@
+{
+  "name": "ml-cart",
+  "version": "0.0.0",
+  "description": "CART decision tree algorithm",
+  "main": "src/index.js",
+  "directories": {
+    "lib": "src",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --require should --reporter mocha-better-spec-reporter --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mljs/bit-array"
+  },
+  "keywords": [
+    "CART",
+    "decision",
+    "tree",
+    "data",
+    "mining",
+    "datamining",
+    "machine",
+    "learning"
+  ],
+  "author": "Keon Kim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mljs/decision-tree-cart/issues"
+  },
+  "homepage": "https://github.com/mljs/decision-tree-cart",
+  "devDependencies": {
+    "mocha": "^2.3.0",
+    "mocha-better-spec-reporter": "^2.1.1",
+    "should": "^7.1.0"
+  }
+}
