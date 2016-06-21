@@ -34,5 +34,8 @@
     "mocha": "^2.3.0",
     "mocha-better-spec-reporter": "^2.1.1",
     "should": "^7.1.0"
+  },
+  "dependencies": {
+    "ml-matrix": "^1.1.5"
   }
 }
