@@ -1,17 +1,19 @@
 "use strict";
 
 var Matrix = require("ml-matrix");
+var Utils = require("./utils");
 
 class TreeNode {
     constructor() {
         this.left = undefined;
         this.right = undefined;
-        this.prediction = undefined;
+        this.distribution = undefined;
         this.splitFunction = mean;
         this.splitValue = undefined;
         this.splitColumn = undefined;
         this.gain = undefined;
-        this.gainFunction = undefined;
+        this.gainFunction = Utils.giniGain;
+        this.minNumSamples = 3;
     }
 
     bestSplit(XTranspose, y) {
@@ -75,20 +77,47 @@ class TreeNode {
 
         return splitValues;
     }
-
-    train(X, y) {
-        this.train(X, y, 0.0);
+    
+    calculatePrediction(y) {
+        this.distribution = Utils.toDiscreteDistribution(y, Utils.getNumberOfClasses(y));
+        if(this.distribution.columns == 0) {
+            throw new TypeError("Error on calculate the prediction");
+        }
     }
 
+    /*train(X, y) {
+        this.train(X, y, 0.0);
+    }*/
+
     train(X, y, parentGain) {
+        if(X.rows <= this.minNumSamples) {
+            this.calculatePrediction(y);
+            return;
+        }
+        if(parentGain == undefined) parentGain = 0.0;
+
         var XTranspose = X.transpose();
         var split = this.bestSplit(XTranspose, y);
 
         this.splitValue = split["maxValue"];
         this.splitColumn = split["maxColumn"];
-        this.gain = split["gain"];
+        this.gain = split["maxGain"];
 
+        var splittedMatrix = matrixSplitter(X, y, this.splitColumn, this.splitValue);
 
+        if((this.gain > 0.01 || this.gain != parentGain) &&
+            (splittedMatrix["lesserX"].length > 0 && splittedMatrix["greaterX"].length > 0)) {
+            this.left = new TreeNode();
+            this.right = new TreeNode();
+
+            var lesserX = new Matrix(splittedMatrix["lesserX"]);
+            var greaterX = new Matrix(splittedMatrix["greaterX"]);
+
+            this.left.train(lesserX, splittedMatrix["lesserY"], this.gain);
+            this.right.train(greaterX, splittedMatrix["greaterY"], this.gain);
+        } else {
+            this.calculatePrediction(y);
+        }
     }
 
     classify(row) {
@@ -100,7 +129,7 @@ class TreeNode {
             }
         }
 
-        return this.prediction;
+        return this.distribution;
     }
 }
 
@@ -144,3 +173,5 @@ function zip(a, b) {
 
     return ret;
 }
+
+module.exports = TreeNode;
