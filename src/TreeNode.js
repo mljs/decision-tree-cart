@@ -1,7 +1,7 @@
 "use strict";
 
 var Matrix = require("ml-matrix");
-var Utils = require("./utils");
+var Utils = require("./Utils");
 
 class TreeNode {
     constructor() {

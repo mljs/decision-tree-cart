@@ -1,12 +1,11 @@
 "use strict";
 
-var Utils = require("./utils");
+var Utils = require("./Utils");
 var Tree = require("./TreeNode");
 var Matrix = require("ml-matrix");
 
 class DecisionTreeClassifier {
     constructor() {
-        console.log("constructor");
     }
 
     train(trainingSet, trainingLabels, options) {

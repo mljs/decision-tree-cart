@@ -1,25 +1,29 @@
 "use strict";
 
 var DTClassifier = require("..");
+var irisDataset = require("ml-dataset-iris");
 
-describe('basic functionality', function () {
-    it('Decision Tree classifier', function () {
-        var cases = [[6,148,72,35,0,33.6,0.627,5],
-            [1.50,85,66.5,29,0,26.6,0.351,31],
-            [8,183,64,0,0,23.3,0.672,32],
-            [0.5,89,65.5,23,94,28.1,0.167,21],
-            [0,137,40,35,168,43.1,2.288,33]];
-        var predictions = [1, 0, 1, 0, 1];
+describe("basic functionality", function () {
+
+    it("Decision Tree classifier with iris dataset", function () {
+        var trainingSet = irisDataset.getNumbers();
+        var predictions = irisDataset.getClasses().map(elem => irisDataset.getDistinctClasses().indexOf(elem));
+
         var classifier = new DTClassifier();
-        classifier.train(cases, predictions);
-        var result = classifier.predict(cases);
+        classifier.train(trainingSet, predictions);
+        var result = classifier.predict(trainingSet);
 
-        console.log(result);
+        var correct = 0;
+        for(var i = 0 ; i < result.length; ++i) {
+            if(result[i] == predictions[i]) correct++;
+        }
 
-        (result[0]).should.be.equal(1);
-        (result[1]).should.be.equal(1);
-        (result[2]).should.be.equal(1);
-        (result[3]).should.be.equal(0);
-        (result[4]).should.be.equal(0);
+        var score = correct / result.length;
+        score.should.be.aboveOrEqual(0.7);
+    });
+});
+
+describe("Utils", function () {
+    it("Gini gain", function () {
     });
 });
