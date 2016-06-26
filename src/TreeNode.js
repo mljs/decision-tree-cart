@@ -4,16 +4,20 @@ var Matrix = require("ml-matrix");
 var Utils = require("./Utils");
 
 class TreeNode {
-    constructor() {
+    constructor(options) {
+        /*if(options === undefined) options = {};
+        if(options.gainFunction === undefined) options.gainFunction = Utils.giniGain;
+        if(options.splitFunction === undefined) options.splitFunction = mean;
+        if(options.minNumSamples === undefined) options.minNumSamples = 3;
+        if(options.maxDepth === undefined) options.maxDepth = Infinity;*/
+
         this.left = undefined;
         this.right = undefined;
         this.distribution = undefined;
-        this.splitFunction = mean;
         this.splitValue = undefined;
         this.splitColumn = undefined;
         this.gain = undefined;
-        this.gainFunction = Utils.giniGain;
-        this.minNumSamples = 3;
+        this.options = options;
     }
 
     bestSplit(XTranspose, y) {
@@ -28,7 +32,7 @@ class TreeNode {
                 var currentSplitVal = splitValues[j];
                 var splitted = this.split(currentFeature, y, currentSplitVal);
                 
-                var gain = this.gainFunction(y, splitted);
+                var gain = this.options.gainFunction(y, splitted);
                 if(gain > maxGain) {
                     maxColumn = i;
                     maxValue = currentSplitVal;
@@ -64,14 +68,14 @@ class TreeNode {
 
     featureSplit(x, y) {
         var splitValues = [];
-        var arr = zip(x, y);
+        var arr = Utils.zip(x, y);
         arr.sort(function (a, b) {
             return a[0] - b[0];
         });
 
         for(var i = 1; i < arr.length; ++i) {
             if(arr[i - 1][1] != arr[i][1]) {
-                splitValues.push(this.splitFunction(arr[i - 1][0], arr[i][0]));
+                splitValues.push(this.options.splitFunction(arr[i - 1][0], arr[i][0]));
             }
         }
 
@@ -85,12 +89,8 @@ class TreeNode {
         }
     }
 
-    /*train(X, y) {
-        this.train(X, y, 0.0);
-    }*/
-
-    train(X, y, parentGain) {
-        if(X.rows <= this.minNumSamples) {
+    train(X, y, currentDepth, parentGain) {
+        if(X.rows <= this.options.minNumSamples) {
             this.calculatePrediction(y);
             return;
         }
@@ -103,18 +103,19 @@ class TreeNode {
         this.splitColumn = split["maxColumn"];
         this.gain = split["maxGain"];
 
-        var splittedMatrix = matrixSplitter(X, y, this.splitColumn, this.splitValue);
+        var splittedMatrix = Utils.matrixSplitter(X, y, this.splitColumn, this.splitValue);
 
-        if((this.gain > 0.01 || this.gain != parentGain) &&
+        if(currentDepth < this.options.maxDepth &&
+            (this.gain > 0.01 || this.gain != parentGain) &&
             (splittedMatrix["lesserX"].length > 0 && splittedMatrix["greaterX"].length > 0)) {
-            this.left = new TreeNode();
-            this.right = new TreeNode();
+            this.left = new TreeNode(this.options);
+            this.right = new TreeNode(this.options);
 
             var lesserX = new Matrix(splittedMatrix["lesserX"]);
             var greaterX = new Matrix(splittedMatrix["greaterX"]);
 
-            this.left.train(lesserX, splittedMatrix["lesserY"], this.gain);
-            this.right.train(greaterX, splittedMatrix["greaterY"], this.gain);
+            this.left.train(lesserX, splittedMatrix["lesserY"], currentDepth + 1, this.gain);
+            this.right.train(greaterX, splittedMatrix["greaterY"], currentDepth + 1,this.gain);
         } else {
             this.calculatePrediction(y);
         }
@@ -132,46 +133,4 @@ class TreeNode {
         return this.distribution;
     }
 }
-
-function matrixSplitter(X, y, column, value) {
-    var lesserX = [];
-    var greaterX = [];
-    var lesserY = [];
-    var greaterY = [];
-
-    for(var i = 0; i < X.rows; ++i) {
-        if(X[i][column] < value) {
-            lesserX.push(X[i]);
-            lesserY.push(y[i]);
-        } else {
-            greaterX.push(X[i]);
-            greaterY.push(y[i]);
-        }
-    }
-
-    return {
-        greaterX: greaterX,
-        greaterY: greaterY,
-        lesserX: lesserX,
-        lesserY: lesserY
-    };
-}
-
-function mean(a, b) {
-    return (a + b) / 2;
-}
-
-function zip(a, b) {
-    if(a.length !== b.length) {
-        throw new TypeError("Error on zip: the size of a: " + a.length + " is different from b: " + b.length);
-    }
-
-    var ret = new Array(a.length);
-    for(var i = 0; i < a.length; ++i) {
-        ret[i] = [a[i], b[i]];
-    }
-
-    return ret;
-}
-
 module.exports = TreeNode;

@@ -32,20 +32,65 @@ function getNumberOfClasses(array) {
     }).length;
 }
 
-function giniGain(array, splited) {
+function giniGain(array, splitted) {
     var splitsImpurity = 0.0;
     var splits = ["greater", "lesser"];
 
     for(var i = 0; i < splits.length; ++i) {
-        var currentSplit = splited[splits[i]];
+        var currentSplit = splitted[splits[i]];
         splitsImpurity += giniImpurity(currentSplit) * currentSplit.length / array.length;
     }
 
     return giniImpurity(array) - splitsImpurity;
 }
 
+function matrixSplitter(X, y, column, value) {
+    var lesserX = [];
+    var greaterX = [];
+    var lesserY = [];
+    var greaterY = [];
+
+    for(var i = 0; i < X.rows; ++i) {
+        if(X[i][column] < value) {
+            lesserX.push(X[i]);
+            lesserY.push(y[i]);
+        } else {
+            greaterX.push(X[i]);
+            greaterY.push(y[i]);
+        }
+    }
+
+    return {
+        greaterX: greaterX,
+        greaterY: greaterY,
+        lesserX: lesserX,
+        lesserY: lesserY
+    };
+}
+
+function mean(a, b) {
+    return (a + b) / 2;
+}
+
+function zip(a, b) {
+    if(a.length !== b.length) {
+        throw new TypeError("Error on zip: the size of a: " + a.length + " is different from b: " + b.length);
+    }
+
+    var ret = new Array(a.length);
+    for(var i = 0; i < a.length; ++i) {
+        ret[i] = [a[i], b[i]];
+    }
+
+    return ret;
+}
+
+
 module.exports = {
     toDiscreteDistribution: toDiscreteDistribution,
     getNumberOfClasses: getNumberOfClasses,
-    giniGain: giniGain
+    giniGain: giniGain,
+    zip: zip,
+    mean: mean,
+    matrixSplitter: matrixSplitter
 };
