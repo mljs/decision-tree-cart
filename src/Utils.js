@@ -44,6 +44,22 @@ function giniGain(array, splitted) {
     return giniImpurity(array) - splitsImpurity;
 }
 
+function squaredError(array) {
+    var mean = array.reduce((a, b) => a + b, 0) / array.length;
+    return array.map(elem => (elem - mean) * (elem - mean)).reduce((a, b) => a + b, 0);
+}
+
+function regressionError(array, splitted) {
+    var error = 0.0;
+    var splits = ["greater", "lesser"];
+
+    for(var i = 0; i < splits.length; ++i) {
+        var currentSplit = splitted[splits[i]];
+        error += squaredError(currentSplit);
+    }
+    return error;
+}
+
 function matrixSplitter(X, y, column, value) {
     var lesserX = [];
     var greaterX = [];
@@ -90,6 +106,7 @@ module.exports = {
     toDiscreteDistribution: toDiscreteDistribution,
     getNumberOfClasses: getNumberOfClasses,
     giniGain: giniGain,
+    regressionError: regressionError,
     zip: zip,
     mean: mean,
     matrixSplitter: matrixSplitter

@@ -4,44 +4,45 @@ var Utils = require("./Utils");
 var Tree = require("./TreeNode");
 var Matrix = require("ml-matrix");
 
-var gainFunctions = {
-    gini: Utils.giniGain
+var costFunctions = {
+    regression: Utils.regressionError
 };
 
-class DecisionTreeClassifier {
+class DecisionTreeRegression {
     constructor(options) {
         if(options === undefined) options = {};
-        options.gainFunction = gainFunctions[options.gainFunction];
-        if(options.gainFunction === undefined) options.gainFunction = gainFunctions["gini"];
+        options.gainFunction = costFunctions[options.gainFunction];
+        if(options.gainFunction === undefined) options.gainFunction = costFunctions["regression"];
         if(options.splitFunction === undefined) options.splitFunction = Utils.mean;
         if(options.minNumSamples === undefined) options.minNumSamples = 3;
         if(options.maxDepth === undefined) options.maxDepth = Infinity;
 
-        options.kind = "classifier";
+        options.kind = "regression";
         this.options = options;
     }
 
-    train(trainingSet, trainingLabels) {
+    train(trainingSet, trainingValues) {
         this.root = new Tree(this.options);
+        if(trainingSet[0].length === undefined) trainingSet = Matrix.columnVector(trainingSet);
         if(!Matrix.isMatrix(trainingSet)) trainingSet = new Matrix(trainingSet);
-        this.root.train(trainingSet, trainingLabels, 0);
+        this.root.train(trainingSet, trainingValues, 0);
     }
 
     predict(toPredict) {
+        if(toPredict[0].length === undefined) toPredict = Matrix.columnVector(toPredict);
         var predictions = new Array(toPredict.length);
 
         for(var i = 0; i < toPredict.length; ++i) {
-            predictions[i] = this.root.classify(toPredict[i]).maxRowIndex(0)[1];
+            predictions[i] = this.root.classify(toPredict[i]);
         }
 
         return predictions;
     }
 
     score(X, y) {
-
+        
     }
+    
 }
 
-
-
-module.exports = DecisionTreeClassifier;
+module.exports = DecisionTreeRegression;

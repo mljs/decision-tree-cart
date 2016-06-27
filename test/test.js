@@ -1,6 +1,7 @@
 "use strict";
 
-var DTClassifier = require("..");
+var DTClassifier = require("..").DecisionTreeClassifier;
+var DTRegression = require("..").DecisionTreeRegression;
 var irisDataset = require("ml-dataset-iris");
 var Utils = require("../src/Utils");
 
@@ -10,11 +11,13 @@ describe("Basic functionality", function () {
         var trainingSet = irisDataset.getNumbers();
         var predictions = irisDataset.getClasses().map(elem => irisDataset.getDistinctClasses().indexOf(elem));
 
-        var classifier = new DTClassifier({
+        var options = {
             gainFunction: Utils.giniGain,
-            minNumSamples: 40,
-            maxDepth: Infinity
-        });
+            maxDepth: 10,
+            minNumSamples: 3
+        };
+
+        var classifier = new DTClassifier(options);
         classifier.train(trainingSet, predictions);
         var result = classifier.predict(trainingSet);
 
@@ -24,8 +27,26 @@ describe("Basic functionality", function () {
         }
 
         var score = correct / result.length;
-        console.log(score);
         score.should.be.aboveOrEqual(0.7);
+    });
+    
+    it("Decision Tree classifier with sin function", function () {
+        var x = new Array(100);
+        var y = new Array(100);
+        var val = 0.0;
+        for(var i = 0; i < x.length; ++i) {
+            x[i] = val;
+            y[i] = Math.sin(x[i]);
+            val += 0.01;
+        }
+        
+        var reg = new DTRegression();
+        reg.train(x, y);
+        var result = reg.predict(x);
+
+        for(i = 0; i < x.length; ++i) {
+            result[i].should.be.approximately(y[i], 0.1);
+        }
     });
 });
 
@@ -35,6 +56,16 @@ describe("Utils", function () {
             greater: [0, 0],
             lesser: [1, 1, 1, 0]
         }).should.be.approximately(0.25, 0.001);
+    });
+
+    it("Regression error", function () {
+        var y = [0.5, 0.7, 0.8, 0.9, 1, 1.1];
+        var splitted = {
+            greater: [0.5, 0.7],
+            lesser: [0.8, 0.9, 1.0, 1.1]
+        };
+
+        Utils.regressionError(y, splitted).should.be.approximately(0.07, 0.01);
     });
 
     it("Get number of classes", function () {

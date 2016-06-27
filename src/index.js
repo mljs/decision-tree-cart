@@ -1,3 +1,6 @@
 "use strict";
 
-module.exports = require("./DecisionTreeClassifier");
+module.exports = {
+    DecisionTreeRegression: require("./DecisionTreeRegression"),
+    DecisionTreeClassifier: require("./DecisionTreeClassifier")
+};

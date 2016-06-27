@@ -21,7 +21,8 @@ class TreeNode {
     }
 
     bestSplit(XTranspose, y) {
-        var maxGain = -Infinity;
+        var bestGain = this.options.kind === "classifier" ? -Infinity : Infinity;
+        var check = this.options.kind === "classifier" ? (a, b) => a > b : (a, b) => a < b;
         var maxColumn = undefined;
         var maxValue = undefined;
 
@@ -33,16 +34,16 @@ class TreeNode {
                 var splitted = this.split(currentFeature, y, currentSplitVal);
                 
                 var gain = this.options.gainFunction(y, splitted);
-                if(gain > maxGain) {
+                if(check(gain, bestGain)) {
                     maxColumn = i;
                     maxValue = currentSplitVal;
-                    maxGain = gain;
+                    bestGain = gain;
                 }
             }
         }
 
         return {
-            maxGain: maxGain,
+            maxGain: bestGain,
             maxColumn: maxColumn,
             maxValue: maxValue
         };
@@ -83,9 +84,13 @@ class TreeNode {
     }
     
     calculatePrediction(y) {
-        this.distribution = Utils.toDiscreteDistribution(y, Utils.getNumberOfClasses(y));
-        if(this.distribution.columns == 0) {
-            throw new TypeError("Error on calculate the prediction");
+        if(this.options.kind === "classifier") {
+            this.distribution = Utils.toDiscreteDistribution(y, Utils.getNumberOfClasses(y));
+            if (this.distribution.columns == 0) {
+                throw new TypeError("Error on calculate the prediction");
+            }
+        } else {
+            this.distribution = y.reduce((a, b) => a + b, 0) / y.length;
         }
     }
 
@@ -106,7 +111,7 @@ class TreeNode {
         var splittedMatrix = Utils.matrixSplitter(X, y, this.splitColumn, this.splitValue);
 
         if(currentDepth < this.options.maxDepth &&
-            (this.gain > 0.01 || this.gain != parentGain) &&
+            (this.gain > 0.01 && this.gain != parentGain) &&
             (splittedMatrix["lesserX"].length > 0 && splittedMatrix["greaterX"].length > 0)) {
             this.left = new TreeNode(this.options);
             this.right = new TreeNode(this.options);
@@ -133,4 +138,5 @@ class TreeNode {
         return this.distribution;
     }
 }
+
 module.exports = TreeNode;
