@@ -12,7 +12,7 @@ describe("Basic functionality", function () {
         var predictions = irisDataset.getClasses().map(elem => irisDataset.getDistinctClasses().indexOf(elem));
 
         var options = {
-            gainFunction: Utils.giniGain,
+            gainFunction: "gini",
             maxDepth: 10,
             minNumSamples: 3
         };
@@ -69,6 +69,6 @@ describe("Utils", function () {
     });
 
     it("Get number of classes", function () {
-        Utils.getNumberOfClasses([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]).should.be.equal(10);
+        Utils.getNumberOfClasses([0, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9]).should.be.equal(10);
     });
 });

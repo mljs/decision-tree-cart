@@ -9,6 +9,7 @@ var gainFunctions = {
 };
 
 class DecisionTreeClassifier {
+    
     constructor(options) {
         if(options === undefined) options = {};
         options.gainFunction = gainFunctions[options.gainFunction];
@@ -37,9 +38,7 @@ class DecisionTreeClassifier {
         return predictions;
     }
 
-    score(X, y) {
-
-    }
+    
 }
 
 

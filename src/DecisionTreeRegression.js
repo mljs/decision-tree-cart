@@ -38,11 +38,6 @@ class DecisionTreeRegression {
 
         return predictions;
     }
-
-    score(X, y) {
-        
-    }
-    
 }
 
 module.exports = DecisionTreeRegression;
