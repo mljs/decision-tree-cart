@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-var Matrix = require("ml-matrix");
+var Matrix = require('ml-matrix');
 
 /**
  * return an array of probabilities of each class
@@ -10,7 +10,7 @@ var Matrix = require("ml-matrix");
  */
 function toDiscreteDistribution(array, numberOfClasses) {
     var counts = new Array(numberOfClasses).fill(0);
-    for(var i = 0; i < array.length; ++i) {
+    for (var i = 0; i < array.length; ++i) {
         counts[array[i]] += 1 / array.length;
     }
 
@@ -23,14 +23,14 @@ function toDiscreteDistribution(array, numberOfClasses) {
  * @returns {number} Gini impurity
  */
 function giniImpurity(array) {
-    if(array.length == 0) {
+    if (array.length === 0) {
         return 0;
     }
 
     var probabilities = toDiscreteDistribution(array, getNumberOfClasses(array))[0];
 
     var sum = 0.0;
-    for(var i = 0; i < probabilities.length; ++i) {
+    for (var i = 0; i < probabilities.length; ++i) {
         sum += probabilities[i] * probabilities[i];
     }
 
@@ -43,7 +43,7 @@ function giniImpurity(array) {
  * @returns {Number} Number of classes.
  */
 function getNumberOfClasses(array) {
-    return array.filter(function(val, i, arr) {
+    return array.filter(function (val, i, arr) {
         return arr.indexOf(val) === i;
     }).length;
 }
@@ -57,9 +57,9 @@ function getNumberOfClasses(array) {
 
 function giniGain(array, splitted) {
     var splitsImpurity = 0.0;
-    var splits = ["greater", "lesser"];
+    var splits = ['greater', 'lesser'];
 
-    for(var i = 0; i < splits.length; ++i) {
+    for (var i = 0; i < splits.length; ++i) {
         var currentSplit = splitted[splits[i]];
         splitsImpurity += giniImpurity(currentSplit) * currentSplit.length / array.length;
     }
@@ -85,9 +85,9 @@ function squaredError(array) {
  */
 function regressionError(array, splitted) {
     var error = 0.0;
-    var splits = ["greater", "lesser"];
+    var splits = ['greater', 'lesser'];
 
-    for(var i = 0; i < splits.length; ++i) {
+    for (var i = 0; i < splits.length; ++i) {
         var currentSplit = splitted[splits[i]];
         error += squaredError(currentSplit);
     }
@@ -108,8 +108,8 @@ function matrixSplitter(X, y, column, value) {
     var lesserY = [];
     var greaterY = [];
 
-    for(var i = 0; i < X.rows; ++i) {
-        if(X[i][column] < value) {
+    for (var i = 0; i < X.rows; ++i) {
+        if (X[i][column] < value) {
             lesserX.push(X[i]);
             lesserY.push(y[i]);
         } else {
@@ -143,12 +143,12 @@ function mean(a, b) {
  * @returns {Array} - list of tuples.
  */
 function zip(a, b) {
-    if(a.length !== b.length) {
-        throw new TypeError("Error on zip: the size of a: " + a.length + " is different from b: " + b.length);
+    if (a.length !== b.length) {
+        throw new TypeError('Error on zip: the size of a: ' + a.length + ' is different from b: ' + b.length);
     }
 
     var ret = new Array(a.length);
-    for(var i = 0; i < a.length; ++i) {
+    for (var i = 0; i < a.length; ++i) {
         ret[i] = [a[i], b[i]];
     }
 

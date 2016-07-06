@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-var Matrix = require("ml-matrix");
-var Utils = require("./Utils");
+var Matrix = require('ml-matrix');
+var Utils = require('./Utils');
 
 class TreeNode {
 
@@ -33,22 +33,22 @@ class TreeNode {
          * Depending in the node tree class, we set the variables to check information gain (to classify)
          * or error (for regression)
          */
-        var bestGain = this.options.kind === "classifier" ? -Infinity : Infinity;
-        var check = this.options.kind === "classifier" ? (a, b) => a > b : (a, b) => a < b;
+        var bestGain = this.options.kind === 'classifier' ? -Infinity : Infinity;
+        var check = this.options.kind === 'classifier' ? (a, b) => a > b : (a, b) => a < b;
 
 
         var maxColumn = undefined;
         var maxValue = undefined;
 
-        for(var i = 0; i < XTranspose.rows; ++i) {
+        for (var i = 0; i < XTranspose.rows; ++i) {
             var currentFeature = XTranspose[i];
             var splitValues = this.featureSplit(currentFeature, y);
-            for(var j = 0 ; j < splitValues.length; ++j) {
+            for (var j = 0; j < splitValues.length; ++j) {
                 var currentSplitVal = splitValues[j];
                 var splitted = this.split(currentFeature, y, currentSplitVal);
                 
                 var gain = this.options.gainFunction(y, splitted);
-                if(check(gain, bestGain)) {
+                if (check(gain, bestGain)) {
                     maxColumn = i;
                     maxValue = currentSplitVal;
                     bestGain = gain;
@@ -75,8 +75,8 @@ class TreeNode {
         var lesser = [];
         var greater = [];
         
-        for(var i = 0; i < x.length; ++i) {
-            if(x[i] < splitValue) {
+        for (var i = 0; i < x.length; ++i) {
+            if (x[i] < splitValue) {
                 lesser.push(y[i]);
             } else {
                 greater.push(y[i]);
@@ -102,8 +102,8 @@ class TreeNode {
             return a[0] - b[0];
         });
 
-        for(var i = 1; i < arr.length; ++i) {
-            if(arr[i - 1][1] != arr[i][1]) {
+        for (var i = 1; i < arr.length; ++i) {
+            if (arr[i - 1][1] !== arr[i][1]) {
                 splitValues.push(this.options.splitFunction(arr[i - 1][0], arr[i][0]));
             }
         }
@@ -116,10 +116,10 @@ class TreeNode {
      * @param {Array} y
      */
     calculatePrediction(y) {
-        if(this.options.kind === "classifier") {
+        if (this.options.kind === 'classifier') {
             this.distribution = Utils.toDiscreteDistribution(y, Utils.getNumberOfClasses(y));
-            if (this.distribution.columns == 0) {
-                throw new TypeError("Error on calculate the prediction");
+            if (this.distribution.columns === 0) {
+                throw new TypeError('Error on calculate the prediction');
             }
         } else {
             this.distribution = y.reduce((a, b) => a + b, 0) / y.length;
@@ -136,32 +136,32 @@ class TreeNode {
      * @param {Number} parentGain - parent node gain or error.
      */
     train(X, y, currentDepth, parentGain) {
-        if(X.rows <= this.options.minNumSamples) {
+        if (X.rows <= this.options.minNumSamples) {
             this.calculatePrediction(y);
             return;
         }
-        if(parentGain == undefined) parentGain = 0.0;
+        if (parentGain === undefined) parentGain = 0.0;
 
         var XTranspose = X.transpose();
         var split = this.bestSplit(XTranspose, y);
 
-        this.splitValue = split["maxValue"];
-        this.splitColumn = split["maxColumn"];
-        this.gain = split["maxGain"];
+        this.splitValue = split['maxValue'];
+        this.splitColumn = split['maxColumn'];
+        this.gain = split['maxGain'];
 
         var splittedMatrix = Utils.matrixSplitter(X, y, this.splitColumn, this.splitValue);
 
-        if(currentDepth < this.options.maxDepth &&
-            (this.gain > 0.01 && this.gain != parentGain) &&
-            (splittedMatrix["lesserX"].length > 0 && splittedMatrix["greaterX"].length > 0)) {
+        if (currentDepth < this.options.maxDepth &&
+            (this.gain > 0.01 && this.gain !== parentGain) &&
+            (splittedMatrix['lesserX'].length > 0 && splittedMatrix['greaterX'].length > 0)) {
             this.left = new TreeNode(this.options);
             this.right = new TreeNode(this.options);
 
-            var lesserX = new Matrix(splittedMatrix["lesserX"]);
-            var greaterX = new Matrix(splittedMatrix["greaterX"]);
+            var lesserX = new Matrix(splittedMatrix['lesserX']);
+            var greaterX = new Matrix(splittedMatrix['greaterX']);
 
-            this.left.train(lesserX, splittedMatrix["lesserY"], currentDepth + 1, this.gain);
-            this.right.train(greaterX, splittedMatrix["greaterY"], currentDepth + 1, this.gain);
+            this.left.train(lesserX, splittedMatrix['lesserY'], currentDepth + 1, this.gain);
+            this.right.train(greaterX, splittedMatrix['greaterY'], currentDepth + 1, this.gain);
         } else {
             this.calculatePrediction(y);
         }
@@ -175,8 +175,8 @@ class TreeNode {
      *          * if a node is for regression returns a number with the prediction.
      */
     classify(row) {
-        if(this.right && this.left) {
-            if(row[this.splitColumn] < this.splitValue) {
+        if (this.right && this.left) {
+            if (row[this.splitColumn] < this.splitValue) {
                 return this.left.classify(row);
             } else {
                 return this.right.classify(row);
