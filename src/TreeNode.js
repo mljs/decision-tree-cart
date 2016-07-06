@@ -4,12 +4,12 @@ var Matrix = require("ml-matrix");
 var Utils = require("./Utils");
 
 class TreeNode {
+
+    /**
+     * Constructor for a tree node given the options received on the main classes (DecisionTreeClassifier, DecisionTreeRegression)
+     * @param options
+     */
     constructor(options) {
-        /*if(options === undefined) options = {};
-        if(options.gainFunction === undefined) options.gainFunction = Utils.giniGain;
-        if(options.splitFunction === undefined) options.splitFunction = mean;
-        if(options.minNumSamples === undefined) options.minNumSamples = 3;
-        if(options.maxDepth === undefined) options.maxDepth = Infinity;*/
 
         this.left = undefined;
         this.right = undefined;
@@ -19,10 +19,24 @@ class TreeNode {
         this.gain = undefined;
         this.options = options;
     }
-
+    
+    /**
+     * Function that retrieve the best feature to make the split.
+     * @param XTranspose - Training set transposed
+     * @param y - labels or values (depending of the decision tree)
+     * @returns {{maxGain: {Number}, maxColumn: {Number}, maxValue: {Number}}} -
+     *           return tree values, the best gain, column and the split value.
+     */
     bestSplit(XTranspose, y) {
+
+        /**
+         * Depending in the node tree class, we set the variables to check information gain (to classify)
+         * or error (for regression)
+         */
         var bestGain = this.options.kind === "classifier" ? -Infinity : Infinity;
         var check = this.options.kind === "classifier" ? (a, b) => a > b : (a, b) => a < b;
+
+
         var maxColumn = undefined;
         var maxValue = undefined;
 
@@ -48,7 +62,15 @@ class TreeNode {
             maxValue: maxValue
         };
     }
-    
+
+    /**
+     * Makes the split of the training labels or values from the training set feature given a split value.
+     * @param {Array} x - Training set feature
+     * @param {Array} y - Training set value or label
+     * @param {Number} splitValue
+     * @returns {{greater: Array, lesser: Array}}
+     */
+
     split(x, y, splitValue) {
         var lesser = [];
         var greater = [];
@@ -67,6 +89,12 @@ class TreeNode {
         };
     }
 
+    /**
+     * Calculates the possible points to split over the tree given a training set feature and corresponding labels or values.
+     * @param {Array} x - Training set feature
+     * @param {Array} y - Training set value or label
+     * @returns {Array} possible split values.
+     */
     featureSplit(x, y) {
         var splitValues = [];
         var arr = Utils.zip(x, y);
@@ -82,7 +110,11 @@ class TreeNode {
 
         return splitValues;
     }
-    
+
+    /**
+     * Calculate the predictions of a leaf tree node given the training labels or values
+     * @param {Array} y
+     */
     calculatePrediction(y) {
         if(this.options.kind === "classifier") {
             this.distribution = Utils.toDiscreteDistribution(y, Utils.getNumberOfClasses(y));
@@ -94,6 +126,15 @@ class TreeNode {
         }
     }
 
+    /**
+     * Train a node given the training set and labels, because it trains recursively, it also receive
+     * the current depth of the node, parent gain to avoid infinite recursion and boolean value to check if
+     * the training set is transposed.
+     * @param {Matrix} X - Training set (could be transposed or not given transposed).
+     * @param {Array} y - Training labels or values.
+     * @param {Number} currentDepth - Current depth of the node.
+     * @param {Number} parentGain - parent node gain or error.
+     */
     train(X, y, currentDepth, parentGain) {
         if(X.rows <= this.options.minNumSamples) {
             this.calculatePrediction(y);
@@ -120,12 +161,19 @@ class TreeNode {
             var greaterX = new Matrix(splittedMatrix["greaterX"]);
 
             this.left.train(lesserX, splittedMatrix["lesserY"], currentDepth + 1, this.gain);
-            this.right.train(greaterX, splittedMatrix["greaterY"], currentDepth + 1,this.gain);
+            this.right.train(greaterX, splittedMatrix["greaterY"], currentDepth + 1, this.gain);
         } else {
             this.calculatePrediction(y);
         }
     }
 
+    /**
+     * Calculates the prediction of a given element.
+     * @param {Array} row
+     * @returns {Number|Array} prediction 
+     *          * if a node is a classifier returns an array of probabilities of each class.
+     *          * if a node is for regression returns a number with the prediction.
+     */
     classify(row) {
         if(this.right && this.left) {
             if(row[this.splitColumn] < this.splitValue) {
