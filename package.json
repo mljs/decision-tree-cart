@@ -41,6 +41,7 @@
     "should": "^7.1.1"
   },
   "dependencies": {
+    "ml-dataset-iris": "^1.0.0",
     "ml-matrix": "^1.1.5"
   }
 }
