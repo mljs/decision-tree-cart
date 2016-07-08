@@ -1,16 +1,7 @@
 'use strict';
 
-var Utils = require('./Utils');
 var Tree = require('./TreeNode');
 var Matrix = require('ml-matrix');
-
-var gainFunctions = {
-    gini: Utils.giniGain
-};
-
-var splitFunctions = {
-    mean: Utils.mean
-};
 
 class DecisionTreeClassifier {
 
@@ -22,16 +13,21 @@ class DecisionTreeClassifier {
      * @param {Number} [options.minNumSamples] - minimum number of samples to create a leaf node to decide a class. Default 3.
      * @param {Number} [options.maxDepth] - Max depth of the tree. Default Infinity.
      */
-    constructor(options) {
-        if (options === undefined) options = {};
-        options.gainFunction = gainFunctions[options.gainFunction];
-        if (options.gainFunction === undefined) options.gainFunction = gainFunctions['gini'];
-        if (options.splitFunction === undefined) options.splitFunction = splitFunctions['mean'];
-        if (options.minNumSamples === undefined) options.minNumSamples = 3;
-        if (options.maxDepth === undefined) options.maxDepth = Infinity;
+    constructor(options, model) {
+        if (options === true) {
+            this.options = model.options;
+            this.root = new Tree(model.options);
+            this.root.setNodeParameters(model.root);
+        } else {
+            if (options === undefined) options = {};
+            if (options.gainFunction === undefined) options.gainFunction = 'gini';
+            if (options.splitFunction === undefined) options.splitFunction = 'mean';
+            if (options.minNumSamples === undefined) options.minNumSamples = 3;
+            if (options.maxDepth === undefined) options.maxDepth = Infinity;
 
-        options.kind = 'classifier';
-        this.options = options;
+            options.kind = 'classifier';
+            this.options = options;   
+        }
     }
 
     /**
@@ -58,6 +54,34 @@ class DecisionTreeClassifier {
         }
 
         return predictions;
+    }
+
+    /**
+     * Export the current model to JSON.
+     * @returns {Object} - Current model.
+     */
+    export() {
+        var toSave = {
+            options: this.options,
+            root: {},
+            name: 'DTClassifier'
+        };
+
+        toSave.root = this.root.save(toSave['root']);
+        return toSave;
+    }
+
+    /**
+     * Load a Decision tree classifier with the given model.
+     * @param {Object} model
+     * @returns {DecisionTreeClassifier}
+     */
+    static load(model) {
+        if (model.name !== 'DTClassifier') {
+            throw new RangeError('Invalid model: ' + model.name);
+        }
+        
+        return new DecisionTreeClassifier(true, model);
     }
 }
 

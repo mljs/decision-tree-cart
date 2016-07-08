@@ -6,8 +6,7 @@ var irisDataset = require("ml-dataset-iris");
 var Utils = require("../src/Utils");
 
 describe("Basic functionality", function () {
-
-    it("Decision Tree classifier with iris dataset", function () {
+    describe("Decision Tree Classifier", function () {
         var trainingSet = irisDataset.getNumbers();
         var predictions = irisDataset.getClasses().map(elem => irisDataset.getDistinctClasses().indexOf(elem));
 
@@ -21,16 +20,29 @@ describe("Basic functionality", function () {
         classifier.train(trainingSet, predictions);
         var result = classifier.predict(trainingSet);
 
-        var correct = 0;
-        for(var i = 0 ; i < result.length; ++i) {
-            if(result[i] == predictions[i]) correct++;
-        }
+        it("Decision Tree classifier with iris dataset", function () {
+            var correct = 0;
+            for(var i = 0 ; i < result.length; ++i) {
+                if(result[i] == predictions[i]) correct++;
+            }
 
-        var score = correct / result.length;
-        score.should.be.aboveOrEqual(0.7);
+            var score = correct / result.length;
+            score.should.be.aboveOrEqual(0.7);
+        });
+
+        it("Export and import for decision tree classifier", function () {
+            var model = JSON.parse(JSON.stringify(classifier.export()));
+
+            var newClassifier = DTClassifier.load(model);
+            var newResult = newClassifier.predict(trainingSet);
+
+            for(var i = 0; i < result.length; ++i) {
+                newResult[i].should.be.equal(result[i]);
+            }
+        });
     });
-    
-    it("Decision Tree classifier with sin function", function () {
+
+    describe("Decision tree regression", function () {
         var x = new Array(100);
         var y = new Array(100);
         var val = 0.0;
@@ -39,15 +51,30 @@ describe("Basic functionality", function () {
             y[i] = Math.sin(x[i]);
             val += 0.01;
         }
-        
+
         var reg = new DTRegression();
         reg.train(x, y);
-        var result = reg.predict(x);
+        var estimations = reg.predict(x);
 
-        for(i = 0; i < x.length; ++i) {
-            result[i].should.be.approximately(y[i], 0.1);
-        }
+        it("Decision Tree classifier with sin function", function () {
+            for(i = 0; i < x.length; ++i) {
+                estimations[i].should.be.approximately(y[i], 0.1);
+            }
+        });
+
+        it("Export and import for decision tree classifier", function () {
+            var model = JSON.parse(JSON.stringify(reg.export()));
+
+            var newClassifier = DTRegression.load(model);
+            var newEstimations = newClassifier.predict(x);
+
+            for(var i = 0; i < estimations.length; ++i) {
+                newEstimations[i].should.be.equal(estimations[i]);
+            }
+        });
     });
+
+
 });
 
 describe("Utils", function () {

@@ -3,6 +3,15 @@
 var Matrix = require('ml-matrix');
 var Utils = require('./Utils');
 
+var gainFunctions = {
+    gini: Utils.giniGain,
+    regression: Utils.regressionError
+};
+
+var splitFunctions = {
+    mean: Utils.mean
+};
+
 class TreeNode {
 
     /**
@@ -47,7 +56,7 @@ class TreeNode {
                 var currentSplitVal = splitValues[j];
                 var splitted = this.split(currentFeature, y, currentSplitVal);
                 
-                var gain = this.options.gainFunction(y, splitted);
+                var gain = gainFunctions[this.options.gainFunction](y, splitted);
                 if (check(gain, bestGain)) {
                     maxColumn = i;
                     maxValue = currentSplitVal;
@@ -104,7 +113,7 @@ class TreeNode {
 
         for (var i = 1; i < arr.length; ++i) {
             if (arr[i - 1][1] !== arr[i][1]) {
-                splitValues.push(this.options.splitFunction(arr[i - 1][0], arr[i][0]));
+                splitValues.push(splitFunctions[this.options.splitFunction](arr[i - 1][0], arr[i][0]));
             }
         }
 
@@ -184,6 +193,61 @@ class TreeNode {
         }
 
         return this.distribution;
+    }
+
+    /**
+     * Save the current node and their children.
+     * @returns {{left: {}, right: {}, distribution: (undefined|*), splitValue: *, splitColumn: (undefined|*), gain: *}|*}
+     */
+    save() {
+        var node = {
+            left: {},
+            right: {},
+            distribution: this.distribution,
+            splitValue: this.splitValue,
+            splitColumn: this.splitColumn,
+            gain: this.gain  
+        };
+
+        if (this.left !== undefined) {
+            node.left = this.left.save();
+        }
+        if (this.right !== undefined) {
+            node.right = this.right.save();
+        }
+
+        return node;
+    }
+
+    /**
+     * Set the parameter of the current node and their children.
+     * @param {Object} node - parameters of the current node and the children.
+     */
+    setNodeParameters(node) {
+        if (node.distribution !== undefined) {
+            this.distribution = node.distribution.constructor === Array ? new Matrix(node.distribution) :
+                                                                          node.distribution;
+            this.splitValue = undefined;
+            this.splitColumn = undefined;
+            this.gain = undefined;
+            this.left = undefined;
+            this.right = undefined;
+        } else {
+            this.distribution = undefined;
+            this.splitValue = node.splitValue;
+            this.splitColumn = node.splitColumn;
+            this.gain = node.gain;
+
+            this.left = new TreeNode(this.options);
+            this.right = new TreeNode(this.options);
+
+            if (node.left !== {}) {
+                this.left.setNodeParameters(node.left);
+            }
+            if (node.right !== {}) {
+                this.right.setNodeParameters(node.right);
+            }
+        }
     }
 }
 

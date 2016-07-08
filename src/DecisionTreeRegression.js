@@ -1,17 +1,7 @@
 'use strict';
 
-var Utils = require('./Utils');
 var Tree = require('./TreeNode');
 var Matrix = require('ml-matrix');
-
-var costFunctions = {
-    regression: Utils.regressionError
-};
-
-var splitFunctions = {
-    mean: Utils.mean
-};
-
 
 class DecisionTreeRegression {
 
@@ -23,16 +13,21 @@ class DecisionTreeRegression {
      * @param {Number} [options.minNumSamples] - minimum number of samples to create a leaf node to decide a class. Default 3.
      * @param {Number} [options.maxDepth] - Max depth of the tree. Default Infinity.
      */
-    constructor(options) {
-        if (options === undefined) options = {};
-        options.gainFunction = costFunctions[options.gainFunction];
-        if (options.gainFunction === undefined) options.gainFunction = costFunctions['regression'];
-        if (options.splitFunction === undefined) options.splitFunction = splitFunctions['mean'];
-        if (options.minNumSamples === undefined) options.minNumSamples = 3;
-        if (options.maxDepth === undefined) options.maxDepth = Infinity;
+    constructor(options, model) {
+        if (options === true) {
+            this.options = model.options;
+            this.root = new Tree(model.options);
+            this.root.setNodeParameters(model.root);
+        } else {
+            if (options === undefined) options = {};
+            if (options.gainFunction === undefined) options.gainFunction = 'regression';
+            if (options.splitFunction === undefined) options.splitFunction = 'mean';
+            if (options.minNumSamples === undefined) options.minNumSamples = 3;
+            if (options.maxDepth === undefined) options.maxDepth = Infinity;
 
-        options.kind = 'regression';
-        this.options = options;
+            options.kind = 'regression';
+            this.options = options;   
+        }
     }
 
     /**
@@ -61,6 +56,34 @@ class DecisionTreeRegression {
         }
 
         return predictions;
+    }
+
+    /**
+     * Export the current model to JSON.
+     * @returns {Object} - Current model.
+     */
+    export() {
+        var toSave = {
+            options: this.options,
+            root: {},
+            name: 'DTRegression'
+        };
+
+        toSave.root = this.root.save(toSave['root']);
+        return toSave;
+    }
+
+    /**
+     * Load a Decision tree regression with the given model.
+     * @param {Object} model
+     * @returns {DecisionTreeRegression}
+     */
+    static load(model) {
+        if (model.name !== 'DTRegression') {
+            throw new RangeError('Invalid model:' + model.name);
+        }
+
+        return new DecisionTreeRegression(true, model);
     }
 }
 
