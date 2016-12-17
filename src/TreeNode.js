@@ -15,6 +15,7 @@ var splitFunctions = {
 class TreeNode {
 
     /**
+     * @private
      * Constructor for a tree node given the options received on the main classes (DecisionTreeClassifier, DecisionTreeRegression)
      * @param {object} options
      * @constructor
@@ -31,6 +32,7 @@ class TreeNode {
     }
 
     /**
+     * @private
      * Function that retrieve the best feature to make the split.
      * @param {Matrix} XTranspose - Training set transposed
      * @param {Array} y - labels or values (depending of the decision tree)
@@ -73,6 +75,7 @@ class TreeNode {
     }
 
     /**
+     * @private
      * Makes the split of the training labels or values from the training set feature given a split value.
      * @param {Array} x - Training set feature
      * @param {Array} y - Training set value or label
@@ -99,6 +102,7 @@ class TreeNode {
     }
 
     /**
+     * @private
      * Calculates the possible points to split over the tree given a training set feature and corresponding labels or values.
      * @param {Array} x - Training set feature
      * @param {Array} y - Training set value or label
@@ -121,6 +125,7 @@ class TreeNode {
     }
 
     /**
+     * @private
      * Calculate the predictions of a leaf tree node given the training labels or values
      * @param {Array} y
      */
@@ -136,6 +141,7 @@ class TreeNode {
     }
 
     /**
+     * @private
      * Train a node given the training set and labels, because it trains recursively, it also receive
      * the current depth of the node, parent gain to avoid infinite recursion and boolean value to check if
      * the training set is transposed.
@@ -177,6 +183,7 @@ class TreeNode {
     }
 
     /**
+     * @private
      * Calculates the prediction of a given element.
      * @param {Array} row
      * @return {number|Array} prediction
@@ -196,6 +203,7 @@ class TreeNode {
     }
 
     /**
+     * @private
      * Save the current node and their children.
      * @return {object}
      */
@@ -220,6 +228,7 @@ class TreeNode {
     }
 
     /**
+     * @private
      * Set the parameter of the current node and their children.
      * @param {object} node - parameters of the current node and the children.
      */

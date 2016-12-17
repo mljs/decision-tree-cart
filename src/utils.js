@@ -3,6 +3,7 @@
 var Matrix = require('ml-matrix');
 
 /**
+ * @private
  * return an array of probabilities of each class
  * @param {Array} array - contains the classes
  * @param {number} numberOfClasses
@@ -18,6 +19,7 @@ function toDiscreteDistribution(array, numberOfClasses) {
 }
 
 /**
+ * @private
  * Retrieves the impurity of array of predictions
  * @param {Array} array - predictions.
  * @return {number} Gini impurity
@@ -38,6 +40,7 @@ function giniImpurity(array) {
 }
 
 /**
+ * @private
  * Return the number of classes given the array of predictions.
  * @param {Array} array - predictions.
  * @return {number} Number of classes.
@@ -49,6 +52,7 @@ function getNumberOfClasses(array) {
 }
 
 /**
+ * @private
  * Calculates the Gini Gain of an array of predictions and those predictions splitted by a feature.
  * @para {Array} array - Predictions
  * @param {object} splitted - Object with elements "greater" and "lesser" that contains an array of predictions splitted.
@@ -68,6 +72,7 @@ function giniGain(array, splitted) {
 }
 
 /**
+ * @private
  * Calculates the squared error of a predictions values.
  * @param {Array} array - predictions values
  * @return {number} squared error.
@@ -78,6 +83,7 @@ function squaredError(array) {
 }
 
 /**
+ * @private
  * Calculates the sum of squared error of the two arrays that contains the splitted values.
  * @param {Array} array - this argument is no necessary but is to fit with the main interface.
  * @param {object} splitted - Object with elements "greater" and "lesser" that contains an array of predictions splitted.
@@ -95,6 +101,7 @@ function regressionError(array, splitted) {
 }
 
 /**
+ * @private
  * Split the training set and values from a given column of the training set if is less than a value
  * @param {Matrix} X - Training set.
  * @param {Array} y - Training values.
@@ -127,6 +134,7 @@ function matrixSplitter(X, y, column, value) {
 }
 
 /**
+ * @private
  * Calculates the mean between two values
  * @param {number} a
  * @param {number} b
@@ -137,6 +145,7 @@ function mean(a, b) {
 }
 
 /**
+ * @private
  * Returns a list of tuples that contains the i-th element of each array.
  * @param {Array} a
  * @param {Array} b
