@@ -40,10 +40,9 @@ class TreeNode {
      */
     bestSplit(XTranspose, y) {
 
-        /**
-         * Depending in the node tree class, we set the variables to check information gain (to classify)
-         * or error (for regression)
-         */
+        // Depending in the node tree class, we set the variables to check information gain (to classify)
+        // or error (for regression)
+
         var bestGain = this.options.kind === 'classifier' ? -Infinity : Infinity;
         var check = this.options.kind === 'classifier' ? (a, b) => a > b : (a, b) => a < b;
 
