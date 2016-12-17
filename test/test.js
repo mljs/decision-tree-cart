@@ -3,7 +3,7 @@
 var DTClassifier = require("..").DecisionTreeClassifier;
 var DTRegression = require("..").DecisionTreeRegression;
 var irisDataset = require("ml-dataset-iris");
-var Utils = require("../src/Utils");
+var Utils = require("../src/utils");
 
 describe("Basic functionality", function () {
     describe("Decision Tree Classifier", function () {
@@ -31,7 +31,7 @@ describe("Basic functionality", function () {
         });
 
         it("Export and import for decision tree classifier", function () {
-            var model = JSON.parse(JSON.stringify(classifier.export()));
+            var model = JSON.parse(JSON.stringify(classifier));
 
             var newClassifier = DTClassifier.load(model);
             var newResult = newClassifier.predict(trainingSet);
@@ -63,7 +63,7 @@ describe("Basic functionality", function () {
         });
 
         it("Export and import for decision tree classifier", function () {
-            var model = JSON.parse(JSON.stringify(reg.export()));
+            var model = JSON.parse(JSON.stringify(reg));
 
             var newClassifier = DTRegression.load(model);
             var newEstimations = newClassifier.predict(x);
