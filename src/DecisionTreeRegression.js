@@ -7,11 +7,12 @@ class DecisionTreeRegression {
 
     /**
      * Create new Decision Tree Regression with CART implementation with the given options.
-     * @param {Object} options
-     * @param {String} [options.gainFunction="regression"] - gain function to get the best split, "regression" the only one supported.
-     * @param {String} [options.splitFunction] - given two integers from a split feature, get the value to split, "mean" the only one supported.
-     * @param {Number} [options.minNumSamples] - minimum number of samples to create a leaf node to decide a class. Default 3.
-     * @param {Number} [options.maxDepth] - Max depth of the tree. Default Infinity.
+     * @param {object} options
+     * @param {string} [options.gainFunction="regression"] - gain function to get the best split, "regression" the only one supported.
+     * @param {string} [options.splitFunction] - given two integers from a split feature, get the value to split, "mean" the only one supported.
+     * @param {number} [options.minNumSamples] - minimum number of samples to create a leaf node to decide a class. Default 3.
+     * @param {number} [options.maxDepth] - Max depth of the tree. Default Infinity.
+     * @param {object} model - for load purposes.
      */
     constructor(options, model) {
         if (options === true) {
@@ -26,7 +27,7 @@ class DecisionTreeRegression {
             if (options.maxDepth === undefined) options.maxDepth = Infinity;
 
             options.kind = 'regression';
-            this.options = options;   
+            this.options = options;
         }
     }
 
@@ -45,7 +46,7 @@ class DecisionTreeRegression {
     /**
      * Predicts the values given the matrix to predict.
      * @param {Matrix} toPredict
-     * @returns {Array} predictions
+     * @return {Array} predictions
      */
     predict(toPredict) {
         if (toPredict[0].length === undefined) toPredict = Matrix.columnVector(toPredict);
@@ -60,23 +61,23 @@ class DecisionTreeRegression {
 
     /**
      * Export the current model to JSON.
-     * @returns {Object} - Current model.
+     * @return {object} - Current model.
      */
-    export() {
+    toJSON() {
         var toSave = {
             options: this.options,
             root: {},
             name: 'DTRegression'
         };
 
-        toSave.root = this.root.save(toSave['root']);
+        toSave.root = this.root;
         return toSave;
     }
 
     /**
      * Load a Decision tree regression with the given model.
-     * @param {Object} model
-     * @returns {DecisionTreeRegression}
+     * @param {object} model
+     * @return {DecisionTreeRegression}
      */
     static load(model) {
         if (model.name !== 'DTRegression') {

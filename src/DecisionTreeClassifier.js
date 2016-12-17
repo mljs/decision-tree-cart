@@ -7,11 +7,13 @@ class DecisionTreeClassifier {
 
     /**
      * Create new Decision Tree Classifier with CART implementation with the given options
-     * @param {Object} options
-     * @param {String} [options.gainFunction="gini"] - gain function to get the best split, "gini" the only one supported.
-     * @param {String} [options.splitFunction] - given two integers from a split feature, get the value to split, "mean" the only one supported.
-     * @param {Number} [options.minNumSamples] - minimum number of samples to create a leaf node to decide a class. Default 3.
-     * @param {Number} [options.maxDepth] - Max depth of the tree. Default Infinity.
+     * @param {object} options
+     * @param {string} [options.gainFunction="gini"] - gain function to get the best split, "gini" the only one supported.
+     * @param {string} [options.splitFunction] - given two integers from a split feature, get the value to split, "mean" the only one supported.
+     * @param {number} [options.minNumSamples] - minimum number of samples to create a leaf node to decide a class. Default 3.
+     * @param {number} [options.maxDepth] - Max depth of the tree. Default Infinity.
+     * @param {object} model - for load purposes.
+     * @constructor
      */
     constructor(options, model) {
         if (options === true) {
@@ -26,7 +28,7 @@ class DecisionTreeClassifier {
             if (options.maxDepth === undefined) options.maxDepth = Infinity;
 
             options.kind = 'classifier';
-            this.options = options;   
+            this.options = options;
         }
     }
 
@@ -43,8 +45,8 @@ class DecisionTreeClassifier {
 
     /**
      * Predicts the output given the matrix to predict.
-     * @param {Matrix} toPredict 
-     * @returns {Array} predictions
+     * @param {Matrix} toPredict
+     * @return {Array} predictions
      */
     predict(toPredict) {
         var predictions = new Array(toPredict.length);
@@ -58,29 +60,29 @@ class DecisionTreeClassifier {
 
     /**
      * Export the current model to JSON.
-     * @returns {Object} - Current model.
+     * @return {object} - Current model.
      */
-    export() {
+    toJSON() {
         var toSave = {
             options: this.options,
             root: {},
             name: 'DTClassifier'
         };
 
-        toSave.root = this.root.save(toSave['root']);
+        toSave.root = this.root;
         return toSave;
     }
 
     /**
      * Load a Decision tree classifier with the given model.
-     * @param {Object} model
-     * @returns {DecisionTreeClassifier}
+     * @param {object} model
+     * @return {DecisionTreeClassifier}
      */
     static load(model) {
         if (model.name !== 'DTClassifier') {
             throw new RangeError('Invalid model: ' + model.name);
         }
-        
+
         return new DecisionTreeClassifier(true, model);
     }
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 var Matrix = require('ml-matrix');
-var Utils = require('./Utils');
+var Utils = require('./utils');
 
 var gainFunctions = {
     gini: Utils.giniGain,
@@ -16,7 +16,8 @@ class TreeNode {
 
     /**
      * Constructor for a tree node given the options received on the main classes (DecisionTreeClassifier, DecisionTreeRegression)
-     * @param options
+     * @param {object} options
+     * @constructor
      */
     constructor(options) {
 
@@ -28,13 +29,12 @@ class TreeNode {
         this.gain = undefined;
         this.options = options;
     }
-    
+
     /**
      * Function that retrieve the best feature to make the split.
-     * @param XTranspose - Training set transposed
-     * @param y - labels or values (depending of the decision tree)
-     * @returns {{maxGain: {Number}, maxColumn: {Number}, maxValue: {Number}}} -
-     *           return tree values, the best gain, column and the split value.
+     * @param {Matrix} XTranspose - Training set transposed
+     * @param {Array} y - labels or values (depending of the decision tree)
+     * @return {object} - return tree values, the best gain, column and the split value.
      */
     bestSplit(XTranspose, y) {
 
@@ -46,8 +46,8 @@ class TreeNode {
         var check = this.options.kind === 'classifier' ? (a, b) => a > b : (a, b) => a < b;
 
 
-        var maxColumn = undefined;
-        var maxValue = undefined;
+        var maxColumn;
+        var maxValue;
 
         for (var i = 0; i < XTranspose.rows; ++i) {
             var currentFeature = XTranspose[i];
@@ -55,7 +55,7 @@ class TreeNode {
             for (var j = 0; j < splitValues.length; ++j) {
                 var currentSplitVal = splitValues[j];
                 var splitted = this.split(currentFeature, y, currentSplitVal);
-                
+
                 var gain = gainFunctions[this.options.gainFunction](y, splitted);
                 if (check(gain, bestGain)) {
                     maxColumn = i;
@@ -76,14 +76,14 @@ class TreeNode {
      * Makes the split of the training labels or values from the training set feature given a split value.
      * @param {Array} x - Training set feature
      * @param {Array} y - Training set value or label
-     * @param {Number} splitValue
-     * @returns {{greater: Array, lesser: Array}}
+     * @param {number} splitValue
+     * @return {object}
      */
 
     split(x, y, splitValue) {
         var lesser = [];
         var greater = [];
-        
+
         for (var i = 0; i < x.length; ++i) {
             if (x[i] < splitValue) {
                 lesser.push(y[i]);
@@ -91,7 +91,7 @@ class TreeNode {
                 greater.push(y[i]);
             }
         }
-        
+
         return {
             greater: greater,
             lesser: lesser
@@ -102,7 +102,7 @@ class TreeNode {
      * Calculates the possible points to split over the tree given a training set feature and corresponding labels or values.
      * @param {Array} x - Training set feature
      * @param {Array} y - Training set value or label
-     * @returns {Array} possible split values.
+     * @return {Array} possible split values.
      */
     featureSplit(x, y) {
         var splitValues = [];
@@ -141,8 +141,8 @@ class TreeNode {
      * the training set is transposed.
      * @param {Matrix} X - Training set (could be transposed or not given transposed).
      * @param {Array} y - Training labels or values.
-     * @param {Number} currentDepth - Current depth of the node.
-     * @param {Number} parentGain - parent node gain or error.
+     * @param {number} currentDepth - Current depth of the node.
+     * @param {number} parentGain - parent node gain or error.
      */
     train(X, y, currentDepth, parentGain) {
         if (X.rows <= this.options.minNumSamples) {
@@ -154,23 +154,23 @@ class TreeNode {
         var XTranspose = X.transpose();
         var split = this.bestSplit(XTranspose, y);
 
-        this.splitValue = split['maxValue'];
-        this.splitColumn = split['maxColumn'];
-        this.gain = split['maxGain'];
+        this.splitValue = split.maxValue;
+        this.splitColumn = split.maxColumn;
+        this.gain = split.maxGain;
 
         var splittedMatrix = Utils.matrixSplitter(X, y, this.splitColumn, this.splitValue);
 
         if (currentDepth < this.options.maxDepth &&
             (this.gain > 0.01 && this.gain !== parentGain) &&
-            (splittedMatrix['lesserX'].length > 0 && splittedMatrix['greaterX'].length > 0)) {
+            (splittedMatrix.lesserX.length > 0 && splittedMatrix.greaterX.length > 0)) {
             this.left = new TreeNode(this.options);
             this.right = new TreeNode(this.options);
 
-            var lesserX = new Matrix(splittedMatrix['lesserX']);
-            var greaterX = new Matrix(splittedMatrix['greaterX']);
+            var lesserX = new Matrix(splittedMatrix.lesserX);
+            var greaterX = new Matrix(splittedMatrix.greaterX);
 
-            this.left.train(lesserX, splittedMatrix['lesserY'], currentDepth + 1, this.gain);
-            this.right.train(greaterX, splittedMatrix['greaterY'], currentDepth + 1, this.gain);
+            this.left.train(lesserX, splittedMatrix.lesserY, currentDepth + 1, this.gain);
+            this.right.train(greaterX, splittedMatrix.greaterY, currentDepth + 1, this.gain);
         } else {
             this.calculatePrediction(y);
         }
@@ -179,7 +179,7 @@ class TreeNode {
     /**
      * Calculates the prediction of a given element.
      * @param {Array} row
-     * @returns {Number|Array} prediction 
+     * @return {number|Array} prediction
      *          * if a node is a classifier returns an array of probabilities of each class.
      *          * if a node is for regression returns a number with the prediction.
      */
@@ -197,23 +197,23 @@ class TreeNode {
 
     /**
      * Save the current node and their children.
-     * @returns {{left: {}, right: {}, distribution: (undefined|*), splitValue: *, splitColumn: (undefined|*), gain: *}|*}
+     * @return {object}
      */
-    save() {
+    toJSON() {
         var node = {
             left: {},
             right: {},
             distribution: this.distribution,
             splitValue: this.splitValue,
             splitColumn: this.splitColumn,
-            gain: this.gain  
+            gain: this.gain
         };
 
         if (this.left !== undefined) {
-            node.left = this.left.save();
+            node.left = this.left;
         }
         if (this.right !== undefined) {
-            node.right = this.right.save();
+            node.right = this.right;
         }
 
         return node;
@@ -221,7 +221,7 @@ class TreeNode {
 
     /**
      * Set the parameter of the current node and their children.
-     * @param {Object} node - parameters of the current node and the children.
+     * @param {object} node - parameters of the current node and the children.
      */
     setNodeParameters(node) {
         if (node.distribution !== undefined) {

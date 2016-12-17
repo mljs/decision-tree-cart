@@ -5,8 +5,8 @@ var Matrix = require('ml-matrix');
 /**
  * return an array of probabilities of each class
  * @param {Array} array - contains the classes
- * @param {Number} numberOfClasses
- * @returns {Matrix} - rowVector of probabilities.
+ * @param {number} numberOfClasses
+ * @return {Matrix} - rowVector of probabilities.
  */
 function toDiscreteDistribution(array, numberOfClasses) {
     var counts = new Array(numberOfClasses).fill(0);
@@ -20,7 +20,7 @@ function toDiscreteDistribution(array, numberOfClasses) {
 /**
  * Retrieves the impurity of array of predictions
  * @param {Array} array - predictions.
- * @returns {number} Gini impurity
+ * @return {number} Gini impurity
  */
 function giniImpurity(array) {
     if (array.length === 0) {
@@ -40,7 +40,7 @@ function giniImpurity(array) {
 /**
  * Return the number of classes given the array of predictions.
  * @param {Array} array - predictions.
- * @returns {Number} Number of classes.
+ * @return {number} Number of classes.
  */
 function getNumberOfClasses(array) {
     return array.filter(function (val, i, arr) {
@@ -51,8 +51,8 @@ function getNumberOfClasses(array) {
 /**
  * Calculates the Gini Gain of an array of predictions and those predictions splitted by a feature.
  * @para {Array} array - Predictions
- * @param {Object} splitted - Object with elements "greater" and "lesser" that contains an array of predictions splitted.
- * @returns {number} - Gini Gain.
+ * @param {object} splitted - Object with elements "greater" and "lesser" that contains an array of predictions splitted.
+ * @return {number} - Gini Gain.
  */
 
 function giniGain(array, splitted) {
@@ -70,7 +70,7 @@ function giniGain(array, splitted) {
 /**
  * Calculates the squared error of a predictions values.
  * @param {Array} array - predictions values
- * @returns {Number} squared error.
+ * @return {number} squared error.
  */
 function squaredError(array) {
     var mean = array.reduce((a, b) => a + b, 0) / array.length;
@@ -80,8 +80,8 @@ function squaredError(array) {
 /**
  * Calculates the sum of squared error of the two arrays that contains the splitted values.
  * @param {Array} array - this argument is no necessary but is to fit with the main interface.
- * @param {Object} splitted - Object with elements "greater" and "lesser" that contains an array of predictions splitted.
- * @returns {number} - sum of squared errors.
+ * @param {object} splitted - Object with elements "greater" and "lesser" that contains an array of predictions splitted.
+ * @return {number} - sum of squared errors.
  */
 function regressionError(array, splitted) {
     var error = 0.0;
@@ -98,9 +98,9 @@ function regressionError(array, splitted) {
  * Split the training set and values from a given column of the training set if is less than a value
  * @param {Matrix} X - Training set.
  * @param {Array} y - Training values.
- * @param {Number} column - Column to split.
- * @param {Number} value - value to split the Training set and values.
- * @returns {{greaterX: Array, greaterY: Array, lesserX: Array, lesserY: Array}} - Object that contains the splitted values.
+ * @param {number} column - Column to split.
+ * @param {number} value - value to split the Training set and values.
+ * @return {object} - Object that contains the splitted values.
  */
 function matrixSplitter(X, y, column, value) {
     var lesserX = [];
@@ -128,9 +128,9 @@ function matrixSplitter(X, y, column, value) {
 
 /**
  * Calculates the mean between two values
- * @param {Number} a
- * @param {Number} b
- * @returns {number}
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
  */
 function mean(a, b) {
     return (a + b) / 2;
@@ -140,7 +140,7 @@ function mean(a, b) {
  * Returns a list of tuples that contains the i-th element of each array.
  * @param {Array} a
  * @param {Array} b
- * @returns {Array} - list of tuples.
+ * @return {Array} list of tuples.
  */
 function zip(a, b) {
     if (a.length !== b.length) {
