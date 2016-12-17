@@ -11,7 +11,7 @@ Decision trees using CART implementation.
 
 `npm install ml-cart`
 
-## [Documentation](https://mljs.github.io/decision-tree-cart/)
+## [Documentation](http://mljs.github.io/decision-tree-cart/)
 
 ## License
 
