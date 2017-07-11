@@ -1,4 +1,3 @@
-'use strict';
 
 module.exports = {
     DecisionTreeRegression: require('./DecisionTreeRegression'),

@@ -1,7 +1,6 @@
-'use strict';
 
 var Tree = require('./TreeNode');
-var Matrix = require('ml-matrix');
+var Matrix = require('ml-matrix').Matrix;
 
 class DecisionTreeClassifier {
 
