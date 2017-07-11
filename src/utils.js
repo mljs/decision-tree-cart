@@ -1,4 +1,5 @@
 import {Matrix as Matrix} from 'ml-matrix';
+import meanArray from 'ml-array-mean';
 
 /**
  * @private
@@ -76,19 +77,14 @@ export function giniGain(array, splitted) {
  * @return {number} squared error.
  */
 export function squaredError(array) {
-    var sum = 0;
     var l = array.length;
 
-    for (var i = 0; i < l; i++) {
-        sum += array[i];
-    }
-    //TODO: put ml-array-mean
-    var mean = sum / l;
+    var m = meanArray(array);
     var squaredError = 0.0;
 
-    for (i = 0; i < l; ++i) {
+    for (var i = 0; i < l; ++i) {
         var currentElement = array[i];
-        squaredError += (currentElement - mean) * (currentElement - mean);
+        squaredError += (currentElement - m) * (currentElement - m);
     }
 
     return squaredError;
@@ -97,7 +93,7 @@ export function squaredError(array) {
 /**
  * @private
  * Calculates the sum of squared error of the two arrays that contains the splitted values.
- * @param {Array} array - this argument is no necessary but is to fit with the main interface.
+ * @param {Array} array - this argument is no necessary but is used to fit with the main interface.
  * @param {object} splitted - Object with elements "greater" and "lesser" that contains an array of predictions splitted.
  * @return {number} - sum of squared errors.
  */

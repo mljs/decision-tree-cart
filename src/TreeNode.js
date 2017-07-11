@@ -1,5 +1,6 @@
 import {Matrix as Matrix} from 'ml-matrix';
 import * as Utils from './utils';
+import mean from 'ml-array-mean';
 
 const gainFunctions = {
     gini: Utils.giniGain,
@@ -140,13 +141,7 @@ export default class TreeNode {
                 throw new TypeError('Error on calculate the prediction');
             }
         } else {
-            // TODO: put ml-array-mean
-            var sum = 0.0;
-            for (var i = 0; i < y.length; ++i) {
-                sum += y[i];
-            }
-
-            this.distribution = sum / y.length;
+            this.distribution = mean(y);
         }
     }
 
