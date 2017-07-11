@@ -1,6 +1,13 @@
 import {Matrix as Matrix} from 'ml-matrix';
 import Tree from './TreeNode';
 
+const defaultOptions = {
+    gainFunction: 'regression',
+    splitFunction: 'mean',
+    minNumSamples: 3,
+    maxDepth: Infinity
+};
+
 export default class DecisionTreeRegression {
 
     /**
@@ -18,12 +25,7 @@ export default class DecisionTreeRegression {
             this.root = new Tree(model.options);
             this.root.setNodeParameters(model.root);
         } else {
-            if (options === undefined) options = {};
-            if (options.gainFunction === undefined) options.gainFunction = 'regression';
-            if (options.splitFunction === undefined) options.splitFunction = 'mean';
-            if (options.minNumSamples === undefined) options.minNumSamples = 3;
-            if (options.maxDepth === undefined) options.maxDepth = Infinity;
-
+            options = Object.assign({}, defaultOptions, options);
             options.kind = 'regression';
             this.options = options;
         }
@@ -62,14 +64,11 @@ export default class DecisionTreeRegression {
      * @return {object} - Current model.
      */
     toJSON() {
-        var toSave = {
+        return {
             options: this.options,
-            root: {},
+            root: this.root,
             name: 'DTRegression'
         };
-
-        toSave.root = this.root;
-        return toSave;
     }
 
     /**

@@ -1,6 +1,13 @@
 import {Matrix as Matrix} from 'ml-matrix';
 import Tree from './TreeNode';
 
+const defaultOptions = {
+    gainFunction: 'gini',
+    splitFunction: 'mean',
+    minNumSamples: 3,
+    maxDepth: Infinity
+};
+
 export default class DecisionTreeClassifier {
 
     /**
@@ -19,12 +26,7 @@ export default class DecisionTreeClassifier {
             this.root = new Tree(model.options);
             this.root.setNodeParameters(model.root);
         } else {
-            if (options === undefined) options = {};
-            if (options.gainFunction === undefined) options.gainFunction = 'gini';
-            if (options.splitFunction === undefined) options.splitFunction = 'mean';
-            if (options.minNumSamples === undefined) options.minNumSamples = 3;
-            if (options.maxDepth === undefined) options.maxDepth = Infinity;
-
+            options = Object.assign({}, defaultOptions, options);
             options.kind = 'classifier';
             this.options = options;
         }
@@ -61,14 +63,11 @@ export default class DecisionTreeClassifier {
      * @return {object} - Current model.
      */
     toJSON() {
-        var toSave = {
+        return {
             options: this.options,
-            root: {},
+            root: this.root,
             name: 'DTClassifier'
         };
-
-        toSave.root = this.root;
-        return toSave;
     }
 
     /**

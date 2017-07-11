@@ -76,8 +76,22 @@ export function giniGain(array, splitted) {
  * @return {number} squared error.
  */
 export function squaredError(array) {
-    var mean = array.reduce((a, b) => a + b, 0) / array.length;
-    return array.map(elem => (elem - mean) * (elem - mean)).reduce((a, b) => a + b, 0);
+    var sum = 0;
+    var l = array.length;
+
+    for (var i = 0; i < l; i++) {
+        sum += array[i];
+    }
+    //TODO: put ml-array-mean
+    var mean = sum / l;
+    var squaredError = 0.0;
+
+    for (i = 0; i < l; ++i) {
+        var currentElement = array[i];
+        squaredError += (currentElement - mean) * (currentElement - mean)
+    }
+
+    return squaredError;
 }
 
 /**

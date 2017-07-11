@@ -19,14 +19,21 @@ export default class TreeNode {
      * @constructor
      */
     constructor(options) {
-
+        // variables for the node
         this.left = undefined;
         this.right = undefined;
         this.distribution = undefined;
         this.splitValue = undefined;
         this.splitColumn = undefined;
         this.gain = undefined;
+
+        // options parameters
         this.options = options;
+        this.kind = options.kind;
+        this.gainFunction = options.gainFunction;
+        this.splitFunction = options.splitFunction;
+        this.minNumSamples = options.minNumSamples;
+        this.maxDepth = options.maxDepth;
     }
 
     /**
@@ -41,8 +48,8 @@ export default class TreeNode {
         // Depending in the node tree class, we set the variables to check information gain (to classify)
         // or error (for regression)
 
-        var bestGain = this.options.kind === 'classifier' ? -Infinity : Infinity;
-        var check = this.options.kind === 'classifier' ? (a, b) => a > b : (a, b) => a < b;
+        var bestGain = this.kind === 'classifier' ? -Infinity : Infinity;
+        var check = this.kind === 'classifier' ? (a, b) => a > b : (a, b) => a < b;
 
 
         var maxColumn;
@@ -55,7 +62,7 @@ export default class TreeNode {
                 var currentSplitVal = splitValues[j];
                 var splitted = this.split(currentFeature, y, currentSplitVal);
 
-                var gain = gainFunctions[this.options.gainFunction](y, splitted);
+                var gain = gainFunctions[this.gainFunction](y, splitted);
                 if (check(gain, bestGain)) {
                     maxColumn = i;
                     maxValue = currentSplitVal;
@@ -114,7 +121,7 @@ export default class TreeNode {
 
         for (var i = 1; i < arr.length; ++i) {
             if (arr[i - 1][1] !== arr[i][1]) {
-                splitValues.push(splitFunctions[this.options.splitFunction](arr[i - 1][0], arr[i][0]));
+                splitValues.push(splitFunctions[this.splitFunction](arr[i - 1][0], arr[i][0]));
             }
         }
 
@@ -127,13 +134,19 @@ export default class TreeNode {
      * @param {Array} y
      */
     calculatePrediction(y) {
-        if (this.options.kind === 'classifier') {
+        if (this.kind === 'classifier') {
             this.distribution = Utils.toDiscreteDistribution(y, Utils.getNumberOfClasses(y));
             if (this.distribution.columns === 0) {
                 throw new TypeError('Error on calculate the prediction');
             }
         } else {
-            this.distribution = y.reduce((a, b) => a + b, 0) / y.length;
+            // TODO: put ml-array-mean
+            var sum = 0.0;
+            for(var i = 0; i < y.length; ++i) {
+                sum += y[i];
+            }
+
+            this.distribution = sum / y.length;
         }
     }
 
@@ -148,7 +161,7 @@ export default class TreeNode {
      * @param {number} parentGain - parent node gain or error.
      */
     train(X, y, currentDepth, parentGain) {
-        if (X.rows <= this.options.minNumSamples) {
+        if (X.rows <= this.minNumSamples) {
             this.calculatePrediction(y);
             return;
         }
@@ -163,7 +176,7 @@ export default class TreeNode {
 
         var splittedMatrix = Utils.matrixSplitter(X, y, this.splitColumn, this.splitValue);
 
-        if (currentDepth < this.options.maxDepth &&
+        if (currentDepth < this.maxDepth &&
             (this.gain > 0.01 && this.gain !== parentGain) &&
             (splittedMatrix.lesserX.length > 0 && splittedMatrix.greaterX.length > 0)) {
             this.left = new TreeNode(this.options);
@@ -197,31 +210,6 @@ export default class TreeNode {
         }
 
         return this.distribution;
-    }
-
-    /**
-     * @private
-     * Save the current node and their children.
-     * @return {object}
-     */
-    toJSON() {
-        var node = {
-            left: {},
-            right: {},
-            distribution: this.distribution,
-            splitValue: this.splitValue,
-            splitColumn: this.splitColumn,
-            gain: this.gain
-        };
-
-        if (this.left !== undefined) {
-            node.left = this.left;
-        }
-        if (this.right !== undefined) {
-            node.right = this.right;
-        }
-
-        return node;
     }
 
     /**
