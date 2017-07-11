@@ -1,8 +1,7 @@
+import {Matrix as Matrix} from 'ml-matrix';
+import Tree from './TreeNode';
 
-var Tree = require('./TreeNode');
-var Matrix = require('ml-matrix').Matrix;
-
-class DecisionTreeClassifier {
+export default class DecisionTreeClassifier {
 
     /**
      * Create new Decision Tree Classifier with CART implementation with the given options
@@ -85,5 +84,3 @@ class DecisionTreeClassifier {
         return new DecisionTreeClassifier(true, model);
     }
 }
-
-module.exports = DecisionTreeClassifier;

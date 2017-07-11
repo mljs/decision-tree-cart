@@ -1,5 +1,5 @@
-var irisDataset = require('ml-dataset-iris');
-var DTClassifier = require('../index').DecisionTreeClassifier;
+import irisDataset from 'ml-dataset-iris';
+import {DecisionTreeClassifier as DTClassifier} from '..';
 
 describe('Decision Tree Classifier', function () {
     var trainingSet = irisDataset.getNumbers();

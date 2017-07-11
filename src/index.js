@@ -1,5 +1,2 @@
-
-module.exports = {
-    DecisionTreeRegression: require('./DecisionTreeRegression'),
-    DecisionTreeClassifier: require('./DecisionTreeClassifier')
-};
+export {default as DecisionTreeClassifier} from './DecisionTreeClassifier';
+export {default as DecisionTreeRegression} from './DecisionTreeRegression';

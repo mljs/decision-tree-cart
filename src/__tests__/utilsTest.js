@@ -1,4 +1,4 @@
-var Utils = require('../utils');
+import * as Utils from '../utils';
 
 describe('Utils', function () {
     test('Gini gain', function () {

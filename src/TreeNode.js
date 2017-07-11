@@ -1,17 +1,16 @@
+import {Matrix as Matrix} from 'ml-matrix';
+import * as Utils from './utils';
 
-var Matrix = require('ml-matrix').Matrix;
-var Utils = require('./utils');
-
-var gainFunctions = {
+const gainFunctions = {
     gini: Utils.giniGain,
     regression: Utils.regressionError
 };
 
-var splitFunctions = {
+const splitFunctions = {
     mean: Utils.mean
 };
 
-class TreeNode {
+export default class TreeNode {
 
     /**
      * @private
@@ -257,5 +256,3 @@ class TreeNode {
         }
     }
 }
-
-module.exports = TreeNode;

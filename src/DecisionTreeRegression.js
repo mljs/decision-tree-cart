@@ -1,8 +1,7 @@
+import {Matrix as Matrix} from 'ml-matrix';
+import Tree from './TreeNode';
 
-var Tree = require('./TreeNode');
-var Matrix = require('ml-matrix').Matrix;
-
-class DecisionTreeRegression {
+export default class DecisionTreeRegression {
 
     /**
      * Create new Decision Tree Regression with CART implementation with the given options.

@@ -1,5 +1,4 @@
-
-var DTRegression = require('../index').DecisionTreeRegression;
+import {DecisionTreeRegression as DTRegression} from '..';
 
 describe('Decision tree regression', function () {
     var x = new Array(100);

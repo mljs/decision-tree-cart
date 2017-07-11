@@ -1,5 +1,4 @@
-
-var Matrix = require('ml-matrix').Matrix;
+import {Matrix as Matrix} from 'ml-matrix';
 
 /**
  * @private
@@ -8,7 +7,7 @@ var Matrix = require('ml-matrix').Matrix;
  * @param {number} numberOfClasses
  * @return {Matrix} - rowVector of probabilities.
  */
-function toDiscreteDistribution(array, numberOfClasses) {
+export function toDiscreteDistribution(array, numberOfClasses) {
     var counts = new Array(numberOfClasses).fill(0);
     for (var i = 0; i < array.length; ++i) {
         counts[array[i]] += 1 / array.length;
@@ -23,7 +22,7 @@ function toDiscreteDistribution(array, numberOfClasses) {
  * @param {Array} array - predictions.
  * @return {number} Gini impurity
  */
-function giniImpurity(array) {
+export function giniImpurity(array) {
     if (array.length === 0) {
         return 0;
     }
@@ -44,7 +43,7 @@ function giniImpurity(array) {
  * @param {Array} array - predictions.
  * @return {number} Number of classes.
  */
-function getNumberOfClasses(array) {
+export function getNumberOfClasses(array) {
     return array.filter(function (val, i, arr) {
         return arr.indexOf(val) === i;
     }).length;
@@ -58,7 +57,7 @@ function getNumberOfClasses(array) {
  * @return {number} - Gini Gain.
  */
 
-function giniGain(array, splitted) {
+export function giniGain(array, splitted) {
     var splitsImpurity = 0.0;
     var splits = ['greater', 'lesser'];
 
@@ -76,7 +75,7 @@ function giniGain(array, splitted) {
  * @param {Array} array - predictions values
  * @return {number} squared error.
  */
-function squaredError(array) {
+export function squaredError(array) {
     var mean = array.reduce((a, b) => a + b, 0) / array.length;
     return array.map(elem => (elem - mean) * (elem - mean)).reduce((a, b) => a + b, 0);
 }
@@ -88,7 +87,7 @@ function squaredError(array) {
  * @param {object} splitted - Object with elements "greater" and "lesser" that contains an array of predictions splitted.
  * @return {number} - sum of squared errors.
  */
-function regressionError(array, splitted) {
+export function regressionError(array, splitted) {
     var error = 0.0;
     var splits = ['greater', 'lesser'];
 
@@ -108,7 +107,7 @@ function regressionError(array, splitted) {
  * @param {number} value - value to split the Training set and values.
  * @return {object} - Object that contains the splitted values.
  */
-function matrixSplitter(X, y, column, value) {
+export function matrixSplitter(X, y, column, value) {
     var lesserX = [];
     var greaterX = [];
     var lesserY = [];
@@ -139,7 +138,7 @@ function matrixSplitter(X, y, column, value) {
  * @param {number} b
  * @return {number}
  */
-function mean(a, b) {
+export function mean(a, b) {
     return (a + b) / 2;
 }
 
@@ -150,7 +149,7 @@ function mean(a, b) {
  * @param {Array} b
  * @return {Array} list of tuples.
  */
-function zip(a, b) {
+export function zip(a, b) {
     if (a.length !== b.length) {
         throw new TypeError('Error on zip: the size of a: ' + a.length + ' is different from b: ' + b.length);
     }
@@ -162,13 +161,3 @@ function zip(a, b) {
 
     return ret;
 }
-
-module.exports = {
-    toDiscreteDistribution: toDiscreteDistribution,
-    getNumberOfClasses: getNumberOfClasses,
-    giniGain: giniGain,
-    regressionError: regressionError,
-    zip: zip,
-    mean: mean,
-    matrixSplitter: matrixSplitter
-};
