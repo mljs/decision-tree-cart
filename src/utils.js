@@ -88,7 +88,7 @@ export function squaredError(array) {
 
     for (i = 0; i < l; ++i) {
         var currentElement = array[i];
-        squaredError += (currentElement - mean) * (currentElement - mean)
+        squaredError += (currentElement - mean) * (currentElement - mean);
     }
 
     return squaredError;

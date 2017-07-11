@@ -142,7 +142,7 @@ export default class TreeNode {
         } else {
             // TODO: put ml-array-mean
             var sum = 0.0;
-            for(var i = 0; i < y.length; ++i) {
+            for (var i = 0; i < y.length; ++i) {
                 sum += y[i];
             }
 
