@@ -1,4 +1,4 @@
-import {Matrix as Matrix} from 'ml-matrix';
+import Matrix from 'ml-matrix';
 import * as Utils from './utils';
 import mean from 'ml-array-mean';
 

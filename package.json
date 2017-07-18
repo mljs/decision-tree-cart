@@ -47,7 +47,6 @@
   },
   "dependencies": {
     "ml-array-mean": "^1.0.0",
-    "ml-dataset-iris": "^1.0.0",
     "ml-matrix": "^3.0.0"
   }
 }
