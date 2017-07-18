@@ -1,9 +1,14 @@
-'use strict';
+import Matrix from 'ml-matrix';
+import Tree from './TreeNode';
 
-var Tree = require('./TreeNode');
-var Matrix = require('ml-matrix');
+const defaultOptions = {
+    gainFunction: 'regression',
+    splitFunction: 'mean',
+    minNumSamples: 3,
+    maxDepth: Infinity
+};
 
-class DecisionTreeRegression {
+export default class DecisionTreeRegression {
 
     /**
      * Create new Decision Tree Regression with CART implementation with the given options.
@@ -20,12 +25,7 @@ class DecisionTreeRegression {
             this.root = new Tree(model.options);
             this.root.setNodeParameters(model.root);
         } else {
-            if (options === undefined) options = {};
-            if (options.gainFunction === undefined) options.gainFunction = 'regression';
-            if (options.splitFunction === undefined) options.splitFunction = 'mean';
-            if (options.minNumSamples === undefined) options.minNumSamples = 3;
-            if (options.maxDepth === undefined) options.maxDepth = Infinity;
-
+            options = Object.assign({}, defaultOptions, options);
             options.kind = 'regression';
             this.options = options;
         }
@@ -64,14 +64,11 @@ class DecisionTreeRegression {
      * @return {object} - Current model.
      */
     toJSON() {
-        var toSave = {
+        return {
             options: this.options,
-            root: {},
+            root: this.root,
             name: 'DTRegression'
         };
-
-        toSave.root = this.root;
-        return toSave;
     }
 
     /**
