@@ -20,14 +20,6 @@ export default class TreeNode {
      * @constructor
      */
     constructor(options) {
-        // variables for the node
-        this.left = undefined;
-        this.right = undefined;
-        this.distribution = undefined;
-        this.splitValue = undefined;
-        this.splitColumn = undefined;
-        this.gain = undefined;
-
         // options parameters
         this.options = options;
         this.kind = options.kind;
