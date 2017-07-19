@@ -25,9 +25,8 @@ export default class DecisionTreeRegression {
             this.root = new Tree(model.options);
             this.root.setNodeParameters(model.root);
         } else {
-            options = Object.assign({}, defaultOptions, options);
-            options.kind = 'regression';
-            this.options = options;
+            this.options = Object.assign({}, defaultOptions, options);
+            this.options.kind = 'regression';
         }
     }
 

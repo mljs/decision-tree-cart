@@ -26,9 +26,8 @@ export default class DecisionTreeClassifier {
             this.root = new Tree(model.options);
             this.root.setNodeParameters(model.root);
         } else {
-            options = Object.assign({}, defaultOptions, options);
-            options.kind = 'classifier';
-            this.options = options;
+            this.options = Object.assign({}, defaultOptions, options);
+            this.options.kind = 'classifier';
         }
     }
 
