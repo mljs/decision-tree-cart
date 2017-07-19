@@ -208,11 +208,6 @@ export default class TreeNode {
         if (node.distribution !== undefined) {
             this.distribution = node.distribution.constructor === Array ? new Matrix(node.distribution) :
                                                                           node.distribution;
-            this.splitValue = undefined;
-            this.splitColumn = undefined;
-            this.gain = undefined;
-            this.left = undefined;
-            this.right = undefined;
         } else {
             this.distribution = undefined;
             this.splitValue = node.splitValue;
