@@ -16,12 +16,11 @@ export default class TreeNode {
     /**
      * @private
      * Constructor for a tree node given the options received on the main classes (DecisionTreeClassifier, DecisionTreeRegression)
-     * @param {object} options
+     * @param {object|TreeNode} options for loading
      * @constructor
      */
     constructor(options) {
         // options parameters
-        this.options = options;
         this.kind = options.kind;
         this.gainFunction = options.gainFunction;
         this.splitFunction = options.splitFunction;
@@ -166,8 +165,8 @@ export default class TreeNode {
         if (currentDepth < this.maxDepth &&
             (this.gain > 0.01 && this.gain !== parentGain) &&
             (splittedMatrix.lesserX.length > 0 && splittedMatrix.greaterX.length > 0)) {
-            this.left = new TreeNode(this.options);
-            this.right = new TreeNode(this.options);
+            this.left = new TreeNode(this);
+            this.right = new TreeNode(this);
 
             var lesserX = new Matrix(splittedMatrix.lesserX);
             var greaterX = new Matrix(splittedMatrix.greaterX);
@@ -214,8 +213,8 @@ export default class TreeNode {
             this.splitColumn = node.splitColumn;
             this.gain = node.gain;
 
-            this.left = new TreeNode(this.options);
-            this.right = new TreeNode(this.options);
+            this.left = new TreeNode(this);
+            this.right = new TreeNode(this);
 
             if (node.left !== {}) {
                 this.left.setNodeParameters(node.left);
