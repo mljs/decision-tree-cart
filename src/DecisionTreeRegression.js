@@ -32,27 +32,29 @@ export default class DecisionTreeRegression {
 
     /**
      * Train the decision tree with the given training set and values.
-     * @param {Matrix} trainingSet
+     * @param {Matrix|MatrixTransposeView|Array} trainingSet
      * @param {Array} trainingValues
      */
     train(trainingSet, trainingValues) {
         this.root = new Tree(this.options);
+
         if (trainingSet[0].length === undefined) trainingSet = Matrix.columnVector(trainingSet);
-        if (!Matrix.isMatrix(trainingSet)) trainingSet = new Matrix(trainingSet);
+        trainingSet = Matrix.checkMatrix(trainingSet);
         this.root.train(trainingSet, trainingValues, 0);
     }
 
     /**
      * Predicts the values given the matrix to predict.
-     * @param {Matrix} toPredict
+     * @param {Matrix|MatrixTransposeView|Array} toPredict
      * @return {Array} predictions
      */
     predict(toPredict) {
         if (toPredict[0].length === undefined) toPredict = Matrix.columnVector(toPredict);
-        var predictions = new Array(toPredict.length);
+        toPredict = Matrix.checkMatrix(toPredict);
 
-        for (var i = 0; i < toPredict.length; ++i) {
-            predictions[i] = this.root.classify(toPredict[i]);
+        var predictions = new Array(toPredict.rows);
+        for (var i = 0; i < toPredict.rows; ++i) {
+            predictions[i] = this.root.classify(toPredict.getRow(i));
         }
 
         return predictions;

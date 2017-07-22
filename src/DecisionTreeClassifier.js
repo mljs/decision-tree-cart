@@ -33,25 +33,26 @@ export default class DecisionTreeClassifier {
 
     /**
      * Train the decision tree with the given training set and labels.
-     * @param {Matrix} trainingSet
+     * @param {Matrix|MatrixTransposeView|Array} trainingSet
      * @param {Array} trainingLabels
      */
     train(trainingSet, trainingLabels) {
         this.root = new Tree(this.options);
-        if (!Matrix.isMatrix(trainingSet)) trainingSet = new Matrix(trainingSet);
+        trainingSet = Matrix.checkMatrix(trainingSet);
         this.root.train(trainingSet, trainingLabels, 0, null);
     }
 
     /**
      * Predicts the output given the matrix to predict.
-     * @param {Matrix} toPredict
+     * @param {Matrix|MatrixTransposeView|Array} toPredict
      * @return {Array} predictions
      */
     predict(toPredict) {
-        var predictions = new Array(toPredict.length);
+        toPredict = Matrix.checkMatrix(toPredict);
+        var predictions = new Array(toPredict.rows);
 
-        for (var i = 0; i < toPredict.length; ++i) {
-            predictions[i] = this.root.classify(toPredict[i]).maxRowIndex(0)[1];
+        for (var i = 0; i < toPredict.rows; ++i) {
+            predictions[i] = this.root.classify(toPredict.getRow(i)).maxRowIndex(0)[1];
         }
 
         return predictions;
