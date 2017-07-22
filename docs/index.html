@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>ml-cart 1.0.1 | Documentation</title>
+  <title>ml-cart 1.0.2 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
@@ -14,7 +14,7 @@
       <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>ml-cart</h3>
-          <div class='mb1'><code>1.0.1</code></div>
+          <div class='mb1'><code>1.0.2</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -25,9 +25,9 @@
               
                 
                 <li><a
-                  href='#constructor'
+                  href='#tojson'
                   class="">
-                  constructor
+                  toJSON
                   
                 </a>
                 
@@ -45,9 +45,9 @@
               
                 
                 <li><a
-                  href='#tojson'
+                  href='#train'
                   class="">
-                  toJSON
+                  train
                   
                 </a>
                 
@@ -55,9 +55,9 @@
               
                 
                 <li><a
-                  href='#train'
+                  href='#constructor'
                   class="">
-                  train
+                  constructor
                   
                 </a>
                 
@@ -138,198 +138,12 @@
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='constructor'>
-      constructor
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/0d132e0657600baa3bcbc606ae0bb4ad2c011d22/src/DecisionTreeClassifier.js#L18-L33'>
-      <span>src/DecisionTreeClassifier.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Create new Decision Tree Classifier with CART implementation with the given options</p>
-
-
-  <div class='pre p1 fill-light mt0'>new constructor(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, model: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
-
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code> 
-          </div>
-          
-          <table class='mt1 mb2 fixed-table h5 col-12'>
-            <colgroup>
-              <col width='30%' />
-              <col width='70%' />
-            </colgroup>
-            <thead>
-              <tr class='bold fill-light'>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody class='mt1'>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.gainFunction</span> <code class='quiet'>[<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>]</code>
-                  
-                    (default <code>&quot;gini&quot;</code>)
-                  </td>
-                  <td class='break-word'><span>gain function to get the best split, "gini" the only one supported.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.splitFunction</span> <code class='quiet'>[<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>]</code>
-                  </td>
-                  <td class='break-word'><span>given two integers from a split feature, get the value to split, "mean" the only one supported.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.minNumSamples</span> <code class='quiet'>[<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>]</code>
-                  </td>
-                  <td class='break-word'><span>minimum number of samples to create a leaf node to decide a class. Default 3.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.maxDepth</span> <code class='quiet'>[<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>]</code>
-                  </td>
-                  <td class='break-word'><span>Max depth of the tree. Default Infinity.
-</span></td>
-                </tr>
-              
-            </tbody>
-          </table>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code> for load purposes.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='predict'>
-      predict
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/0d132e0657600baa3bcbc606ae0bb4ad2c011d22/src/DecisionTreeClassifier.js#L51-L59'>
-      <span>src/DecisionTreeClassifier.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Predicts the output given the matrix to predict.</p>
-
-
-  <div class='pre p1 fill-light mt0'>predict(toPredict: Matrix): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
-
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>toPredict</span> <code class='quiet'>(Matrix)</code> 
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
-        predictions
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
     <h3 class='fl m0' id='tojson'>
       toJSON
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/0d132e0657600baa3bcbc606ae0bb4ad2c011d22/src/DecisionTreeClassifier.js#L65-L74'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/8f2c9d0212f6ebb3cbdd38a36b5ccb0e0646e169/src/DecisionTreeClassifier.js#L65-L71'>
       <span>src/DecisionTreeClassifier.js</span>
       </a>
     
@@ -340,9 +154,10 @@
 
 
   <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
-
+  
   
 
+  
   
   
   
@@ -382,25 +197,26 @@
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='train'>
-      train
+    <h3 class='fl m0' id='predict'>
+      predict
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/0d132e0657600baa3bcbc606ae0bb4ad2c011d22/src/DecisionTreeClassifier.js#L40-L44'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/8f2c9d0212f6ebb3cbdd38a36b5ccb0e0646e169/src/DecisionTreeClassifier.js#L50-L59'>
       <span>src/DecisionTreeClassifier.js</span>
       </a>
     
   </div>
   
 
-  <p>Train the decision tree with the given training set and labels.</p>
+  <p>Predicts the output given the matrix to predict.</p>
 
 
-  <div class='pre p1 fill-light mt0'>train(trainingSet: Matrix, trainingLabels: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</div>
-
+  <div class='pre p1 fill-light mt0'>predict(toPredict: (Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+  
   
 
+  
   
   
   
@@ -413,14 +229,213 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>trainingSet</span> <code class='quiet'>(Matrix)</code> 
+            <span class='code bold'>toPredict</span> <code class='quiet'>((Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
+        predictions
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='train'>
+      train
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/8f2c9d0212f6ebb3cbdd38a36b5ccb0e0646e169/src/DecisionTreeClassifier.js#L39-L43'>
+      <span>src/DecisionTreeClassifier.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Train the decision tree with the given training set and labels.</p>
+
+
+  <div class='pre p1 fill-light mt0'>train(trainingSet: (Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>), trainingLabels: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trainingSet</span> <code class='quiet'>((Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
+	    
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>trainingLabels</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code> 
+            <span class='code bold'>trainingLabels</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='constructor'>
+      constructor
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/8f2c9d0212f6ebb3cbdd38a36b5ccb0e0646e169/src/DecisionTreeClassifier.js#L23-L32'>
+      <span>src/DecisionTreeClassifier.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Create new Decision Tree Classifier with CART implementation with the given options</p>
+
+
+  <div class='pre p1 fill-light mt0'>new constructor(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, model: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.gainFunction</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
+                  
+                    (default <code>&quot;gini&quot;</code>)
+                  </td>
+                  <td class='break-word'><span>gain function to get the best split, "gini" the only one supported.
+</span></td>
+                </tr>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.splitFunction</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
+                  
+                    (default <code>&quot;mean&quot;</code>)
+                  </td>
+                  <td class='break-word'><span>given two integers from a split feature, get the value to split, "mean" the only one supported.
+</span></td>
+                </tr>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.minNumSamples</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+                  
+                    (default <code>3</code>)
+                  </td>
+                  <td class='break-word'><span>minimum number of samples to create a leaf node to decide a class.
+</span></td>
+                </tr>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.maxDepth</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+                  
+                    (default <code>Infinity</code>)
+                  </td>
+                  <td class='break-word'><span>Max depth of the tree.
+</span></td>
+                </tr>
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    for load purposes.
+
           </div>
           
         </div>
@@ -456,7 +471,7 @@
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/0d132e0657600baa3bcbc606ae0bb4ad2c011d22/src/DecisionTreeClassifier.js#L81-L87'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/8f2c9d0212f6ebb3cbdd38a36b5ccb0e0646e169/src/DecisionTreeClassifier.js#L78-L84'>
       <span>src/DecisionTreeClassifier.js</span>
       </a>
     
@@ -467,9 +482,10 @@
 
 
   <div class='pre p1 fill-light mt0'>load(model: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): DecisionTreeClassifier</div>
-
+  
   
 
+  
   
   
   
@@ -482,7 +498,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code> 
+            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
           </div>
           
         </div>
@@ -526,7 +543,7 @@
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/0d132e0657600baa3bcbc606ae0bb4ad2c011d22/src/DecisionTreeRegression.js#L17-L32'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/8f2c9d0212f6ebb3cbdd38a36b5ccb0e0646e169/src/DecisionTreeRegression.js#L22-L31'>
       <span>src/DecisionTreeRegression.js</span>
       </a>
     
@@ -537,9 +554,10 @@
 
 
   <div class='pre p1 fill-light mt0'>constructor(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, model: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
-
+  
   
 
+  
   
   
   
@@ -552,7 +570,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code> 
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
           </div>
           
           <table class='mt1 mb2 fixed-table h5 col-12'>
@@ -569,7 +588,7 @@
             <tbody class='mt1'>
               
                 <tr>
-                  <td class='break-word'><span class='code bold'>options.gainFunction</span> <code class='quiet'>[<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>]</code>
+                  <td class='break-word'><span class='code bold'>options.gainFunction</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
                   
                     (default <code>&quot;regression&quot;</code>)
                   </td>
@@ -578,23 +597,29 @@
                 </tr>
               
                 <tr>
-                  <td class='break-word'><span class='code bold'>options.splitFunction</span> <code class='quiet'>[<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>]</code>
+                  <td class='break-word'><span class='code bold'>options.splitFunction</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
+                  
+                    (default <code>&quot;mean&quot;</code>)
                   </td>
                   <td class='break-word'><span>given two integers from a split feature, get the value to split, "mean" the only one supported.
 </span></td>
                 </tr>
               
                 <tr>
-                  <td class='break-word'><span class='code bold'>options.minNumSamples</span> <code class='quiet'>[<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>]</code>
+                  <td class='break-word'><span class='code bold'>options.minNumSamples</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+                  
+                    (default <code>3</code>)
                   </td>
-                  <td class='break-word'><span>minimum number of samples to create a leaf node to decide a class. Default 3.
+                  <td class='break-word'><span>minimum number of samples to create a leaf node to decide a class.
 </span></td>
                 </tr>
               
                 <tr>
-                  <td class='break-word'><span class='code bold'>options.maxDepth</span> <code class='quiet'>[<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>]</code>
+                  <td class='break-word'><span class='code bold'>options.maxDepth</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+                  
+                    (default <code>Infinity</code>)
                   </td>
-                  <td class='break-word'><span>Max depth of the tree. Default Infinity.
+                  <td class='break-word'><span>Max depth of the tree.
 </span></td>
                 </tr>
               
@@ -605,7 +630,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code> for load purposes.
+            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    for load purposes.
 
           </div>
           
@@ -642,7 +668,7 @@
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/0d132e0657600baa3bcbc606ae0bb4ad2c011d22/src/DecisionTreeRegression.js#L51-L60'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/8f2c9d0212f6ebb3cbdd38a36b5ccb0e0646e169/src/DecisionTreeRegression.js#L51-L61'>
       <span>src/DecisionTreeRegression.js</span>
       </a>
     
@@ -652,10 +678,11 @@
   <p>Predicts the values given the matrix to predict.</p>
 
 
-  <div class='pre p1 fill-light mt0'>predict(toPredict: Matrix): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
-
+  <div class='pre p1 fill-light mt0'>predict(toPredict: (Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+  
   
 
+  
   
   
   
@@ -668,7 +695,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>toPredict</span> <code class='quiet'>(Matrix)</code> 
+            <span class='code bold'>toPredict</span> <code class='quiet'>((Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
+	    
           </div>
           
         </div>
@@ -712,7 +740,7 @@
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/0d132e0657600baa3bcbc606ae0bb4ad2c011d22/src/DecisionTreeRegression.js#L66-L75'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/8f2c9d0212f6ebb3cbdd38a36b5ccb0e0646e169/src/DecisionTreeRegression.js#L67-L73'>
       <span>src/DecisionTreeRegression.js</span>
       </a>
     
@@ -723,9 +751,10 @@
 
 
   <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
-
+  
   
 
+  
   
   
   
@@ -770,7 +799,7 @@
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/0d132e0657600baa3bcbc606ae0bb4ad2c011d22/src/DecisionTreeRegression.js#L39-L44'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/8f2c9d0212f6ebb3cbdd38a36b5ccb0e0646e169/src/DecisionTreeRegression.js#L38-L44'>
       <span>src/DecisionTreeRegression.js</span>
       </a>
     
@@ -780,10 +809,11 @@
   <p>Train the decision tree with the given training set and values.</p>
 
 
-  <div class='pre p1 fill-light mt0'>train(trainingSet: Matrix, trainingValues: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</div>
-
+  <div class='pre p1 fill-light mt0'>train(trainingSet: (Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>), trainingValues: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</div>
+  
   
 
+  
   
   
   
@@ -796,14 +826,16 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>trainingSet</span> <code class='quiet'>(Matrix)</code> 
+            <span class='code bold'>trainingSet</span> <code class='quiet'>((Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
+	    
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>trainingValues</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code> 
+            <span class='code bold'>trainingValues</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
+	    
           </div>
           
         </div>
@@ -839,7 +871,7 @@
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/0d132e0657600baa3bcbc606ae0bb4ad2c011d22/src/DecisionTreeRegression.js#L82-L88'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/8f2c9d0212f6ebb3cbdd38a36b5ccb0e0646e169/src/DecisionTreeRegression.js#L80-L86'>
       <span>src/DecisionTreeRegression.js</span>
       </a>
     
@@ -850,9 +882,10 @@
 
 
   <div class='pre p1 fill-light mt0'>load(model: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): DecisionTreeRegression</div>
-
+  
   
 
+  
   
   
   
@@ -865,7 +898,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code> 
+            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
           </div>
           
         </div>
