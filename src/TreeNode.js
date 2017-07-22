@@ -16,20 +16,11 @@ export default class TreeNode {
     /**
      * @private
      * Constructor for a tree node given the options received on the main classes (DecisionTreeClassifier, DecisionTreeRegression)
-     * @param {object} options
+     * @param {object|TreeNode} options for loading
      * @constructor
      */
     constructor(options) {
-        // variables for the node
-        this.left = undefined;
-        this.right = undefined;
-        this.distribution = undefined;
-        this.splitValue = undefined;
-        this.splitColumn = undefined;
-        this.gain = undefined;
-
         // options parameters
-        this.options = options;
         this.kind = options.kind;
         this.gainFunction = options.gainFunction;
         this.splitFunction = options.splitFunction;
@@ -174,8 +165,8 @@ export default class TreeNode {
         if (currentDepth < this.maxDepth &&
             (this.gain > 0.01 && this.gain !== parentGain) &&
             (splittedMatrix.lesserX.length > 0 && splittedMatrix.greaterX.length > 0)) {
-            this.left = new TreeNode(this.options);
-            this.right = new TreeNode(this.options);
+            this.left = new TreeNode(this);
+            this.right = new TreeNode(this);
 
             var lesserX = new Matrix(splittedMatrix.lesserX);
             var greaterX = new Matrix(splittedMatrix.greaterX);
@@ -216,19 +207,14 @@ export default class TreeNode {
         if (node.distribution !== undefined) {
             this.distribution = node.distribution.constructor === Array ? new Matrix(node.distribution) :
                                                                           node.distribution;
-            this.splitValue = undefined;
-            this.splitColumn = undefined;
-            this.gain = undefined;
-            this.left = undefined;
-            this.right = undefined;
         } else {
             this.distribution = undefined;
             this.splitValue = node.splitValue;
             this.splitColumn = node.splitColumn;
             this.gain = node.gain;
 
-            this.left = new TreeNode(this.options);
-            this.right = new TreeNode(this.options);
+            this.left = new TreeNode(this);
+            this.right = new TreeNode(this);
 
             if (node.left !== {}) {
                 this.left.setNodeParameters(node.left);

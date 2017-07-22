@@ -14,9 +14,9 @@ export default class DecisionTreeRegression {
      * Create new Decision Tree Regression with CART implementation with the given options.
      * @param {object} options
      * @param {string} [options.gainFunction="regression"] - gain function to get the best split, "regression" the only one supported.
-     * @param {string} [options.splitFunction] - given two integers from a split feature, get the value to split, "mean" the only one supported.
-     * @param {number} [options.minNumSamples] - minimum number of samples to create a leaf node to decide a class. Default 3.
-     * @param {number} [options.maxDepth] - Max depth of the tree. Default Infinity.
+     * @param {string} [options.splitFunction="mean"] - given two integers from a split feature, get the value to split, "mean" the only one supported.
+     * @param {number} [options.minNumSamples=3] - minimum number of samples to create a leaf node to decide a class.
+     * @param {number} [options.maxDepth=Infinity] - Max depth of the tree.
      * @param {object} model - for load purposes.
      */
     constructor(options, model) {
@@ -25,35 +25,36 @@ export default class DecisionTreeRegression {
             this.root = new Tree(model.options);
             this.root.setNodeParameters(model.root);
         } else {
-            options = Object.assign({}, defaultOptions, options);
-            options.kind = 'regression';
-            this.options = options;
+            this.options = Object.assign({}, defaultOptions, options);
+            this.options.kind = 'regression';
         }
     }
 
     /**
      * Train the decision tree with the given training set and values.
-     * @param {Matrix} trainingSet
+     * @param {Matrix|MatrixTransposeView|Array} trainingSet
      * @param {Array} trainingValues
      */
     train(trainingSet, trainingValues) {
         this.root = new Tree(this.options);
+
         if (trainingSet[0].length === undefined) trainingSet = Matrix.columnVector(trainingSet);
-        if (!Matrix.isMatrix(trainingSet)) trainingSet = new Matrix(trainingSet);
+        trainingSet = Matrix.checkMatrix(trainingSet);
         this.root.train(trainingSet, trainingValues, 0);
     }
 
     /**
      * Predicts the values given the matrix to predict.
-     * @param {Matrix} toPredict
+     * @param {Matrix|MatrixTransposeView|Array} toPredict
      * @return {Array} predictions
      */
     predict(toPredict) {
         if (toPredict[0].length === undefined) toPredict = Matrix.columnVector(toPredict);
-        var predictions = new Array(toPredict.length);
+        toPredict = Matrix.checkMatrix(toPredict);
 
-        for (var i = 0; i < toPredict.length; ++i) {
-            predictions[i] = this.root.classify(toPredict[i]);
+        var predictions = new Array(toPredict.rows);
+        for (var i = 0; i < toPredict.rows; ++i) {
+            predictions[i] = this.root.classify(toPredict.getRow(i));
         }
 
         return predictions;
