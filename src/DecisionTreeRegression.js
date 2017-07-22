@@ -14,9 +14,9 @@ export default class DecisionTreeRegression {
      * Create new Decision Tree Regression with CART implementation with the given options.
      * @param {object} options
      * @param {string} [options.gainFunction="regression"] - gain function to get the best split, "regression" the only one supported.
-     * @param {string} [options.splitFunction] - given two integers from a split feature, get the value to split, "mean" the only one supported.
-     * @param {number} [options.minNumSamples] - minimum number of samples to create a leaf node to decide a class. Default 3.
-     * @param {number} [options.maxDepth] - Max depth of the tree. Default Infinity.
+     * @param {string} [options.splitFunction="mean"] - given two integers from a split feature, get the value to split, "mean" the only one supported.
+     * @param {number} [options.minNumSamples=3] - minimum number of samples to create a leaf node to decide a class.
+     * @param {number} [options.maxDepth=Infinity] - Max depth of the tree.
      * @param {object} model - for load purposes.
      */
     constructor(options, model) {
