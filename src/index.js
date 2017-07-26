@@ -1,2 +1,7 @@
-export {default as DecisionTreeClassifier} from './DecisionTreeClassifier';
-export {default as DecisionTreeRegression} from './DecisionTreeRegression';
+import {default as DecisionTreeClassifier} from './DecisionTreeClassifier';
+import {default as DecisionTreeRegression} from './DecisionTreeRegression';
+
+export default {
+    DecisionTreeRegression,
+    DecisionTreeClassifier
+};
