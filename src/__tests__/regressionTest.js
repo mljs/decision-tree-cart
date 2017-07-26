@@ -1,4 +1,4 @@
-import {DecisionTreeRegression as DTRegression} from '..';
+import {DecisionTreeRegression as DTRegression} from '../..';
 import Matrix from 'ml-matrix';
 
 var x = new Array(100);

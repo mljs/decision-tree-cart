@@ -1,5 +1,5 @@
 import irisDataset from 'ml-dataset-iris';
-import {DecisionTreeClassifier as DTClassifier} from '..';
+import {DecisionTreeClassifier as DTClassifier} from '../..';
 import Matrix from 'ml-matrix';
 
 var trainingSet = irisDataset.getNumbers();
