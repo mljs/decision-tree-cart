@@ -2,7 +2,8 @@
   "name": "ml-cart",
   "version": "1.0.3",
   "description": "CART decision tree algorithm",
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "module": "src/index.js",
   "directories": {
     "lib": "src",
     "test": "test"
