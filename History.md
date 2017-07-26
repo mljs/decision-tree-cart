@@ -1,3 +1,13 @@
+<a name="1.0.7"></a>
+## [1.0.7](https://github.com/mljs/decision-tree-cart/compare/v1.0.6...v1.0.7) (2017-07-26)
+
+
+### Bug Fixes
+
+* remove separate exports to one export to fix bug on import ([ac5ee58](https://github.com/mljs/decision-tree-cart/commit/ac5ee58))
+
+
+
 <a name="1.0.6"></a>
 ## [1.0.6](https://github.com/mljs/decision-tree-cart/compare/v1.0.5...v1.0.6) (2017-07-26)
 
