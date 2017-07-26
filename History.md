@@ -1,3 +1,13 @@
+<a name="1.0.6"></a>
+## [1.0.6](https://github.com/mljs/decision-tree-cart/compare/v1.0.5...v1.0.6) (2017-07-26)
+
+
+### Bug Fixes
+
+* bug when trying to access to transpose view elements (test added) ([0646ece](https://github.com/mljs/decision-tree-cart/commit/0646ece))
+
+
+
 <a name="1.0.5"></a>
 ## [1.0.5](https://github.com/mljs/decision-tree-cart/compare/v1.0.4...v1.0.5) (2017-07-26)
 
