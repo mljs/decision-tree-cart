@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>ml-cart 1.0.3 | Documentation</title>
+  <title>ml-cart 1.0.4 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
@@ -14,7 +14,7 @@
       <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>ml-cart</h3>
-          <div class='mb1'><code>1.0.3</code></div>
+          <div class='mb1'><code>1.0.4</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -25,9 +25,9 @@
               
                 
                 <li><a
-                  href='#constructor'
+                  href='#tojson'
                   class="">
-                  constructor
+                  toJSON
                   
                 </a>
                 
@@ -45,9 +45,9 @@
               
                 
                 <li><a
-                  href='#tojson'
+                  href='#train'
                   class="">
-                  toJSON
+                  train
                   
                 </a>
                 
@@ -55,9 +55,9 @@
               
                 
                 <li><a
-                  href='#train'
+                  href='#constructor'
                   class="">
-                  train
+                  constructor
                   
                 </a>
                 
@@ -75,9 +75,9 @@
               
                 
                 <li><a
-                  href='#tojson'
+                  href='#constructor'
                   class="">
-                  toJSON
+                  constructor
                   
                 </a>
                 
@@ -95,9 +95,9 @@
               
                 
                 <li><a
-                  href='#train'
+                  href='#tojson'
                   class="">
-                  train
+                  toJSON
                   
                 </a>
                 
@@ -105,9 +105,9 @@
               
                 
                 <li><a
-                  href='#constructor'
+                  href='#train'
                   class="">
-                  constructor
+                  train
                   
                 </a>
                 
@@ -138,12 +138,215 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='tojson'>
+      toJSON
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/ae8cd072c8b77f9c440b59fe3a8522e691aeb1ff/src/DecisionTreeClassifier.js#L65-L71'>
+      <span>src/DecisionTreeClassifier.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Export the current model to JSON.</p>
+
+
+  <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        Current model.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='predict'>
+      predict
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/ae8cd072c8b77f9c440b59fe3a8522e691aeb1ff/src/DecisionTreeClassifier.js#L50-L59'>
+      <span>src/DecisionTreeClassifier.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Predicts the output given the matrix to predict.</p>
+
+
+  <div class='pre p1 fill-light mt0'>predict(toPredict: (Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>toPredict</span> <code class='quiet'>((Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
+        predictions
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='train'>
+      train
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/ae8cd072c8b77f9c440b59fe3a8522e691aeb1ff/src/DecisionTreeClassifier.js#L39-L43'>
+      <span>src/DecisionTreeClassifier.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Train the decision tree with the given training set and labels.</p>
+
+
+  <div class='pre p1 fill-light mt0'>train(trainingSet: (Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>), trainingLabels: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trainingSet</span> <code class='quiet'>((Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trainingLabels</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='constructor'>
       constructor
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/2b508f989d37f002ddaf15c27cab8b9503f8c7c4/src/DecisionTreeClassifier.js#L23-L32'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/ae8cd072c8b77f9c440b59fe3a8522e691aeb1ff/src/DecisionTreeClassifier.js#L23-L32'>
       <span>src/DecisionTreeClassifier.js</span>
       </a>
     
@@ -263,215 +466,12 @@
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='predict'>
-      predict
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/2b508f989d37f002ddaf15c27cab8b9503f8c7c4/src/DecisionTreeClassifier.js#L50-L59'>
-      <span>src/DecisionTreeClassifier.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Predicts the output given the matrix to predict.</p>
-
-
-  <div class='pre p1 fill-light mt0'>predict(toPredict: (Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>toPredict</span> <code class='quiet'>((Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
-        predictions
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='tojson'>
-      toJSON
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/2b508f989d37f002ddaf15c27cab8b9503f8c7c4/src/DecisionTreeClassifier.js#L65-L71'>
-      <span>src/DecisionTreeClassifier.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Export the current model to JSON.</p>
-
-
-  <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
-        Current model.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='train'>
-      train
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/2b508f989d37f002ddaf15c27cab8b9503f8c7c4/src/DecisionTreeClassifier.js#L39-L43'>
-      <span>src/DecisionTreeClassifier.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Train the decision tree with the given training set and labels.</p>
-
-
-  <div class='pre p1 fill-light mt0'>train(trainingSet: (Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>), trainingLabels: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>trainingSet</span> <code class='quiet'>((Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>trainingLabels</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
     <h3 class='fl m0' id='load'>
       load
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/2b508f989d37f002ddaf15c27cab8b9503f8c7c4/src/DecisionTreeClassifier.js#L78-L84'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/ae8cd072c8b77f9c440b59fe3a8522e691aeb1ff/src/DecisionTreeClassifier.js#L78-L84'>
       <span>src/DecisionTreeClassifier.js</span>
       </a>
     
@@ -538,215 +538,12 @@
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='tojson'>
-      toJSON
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/2b508f989d37f002ddaf15c27cab8b9503f8c7c4/src/DecisionTreeRegression.js#L67-L73'>
-      <span>src/DecisionTreeRegression.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Export the current model to JSON.</p>
-
-
-  <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
-        Current model.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='predict'>
-      predict
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/2b508f989d37f002ddaf15c27cab8b9503f8c7c4/src/DecisionTreeRegression.js#L51-L61'>
-      <span>src/DecisionTreeRegression.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Predicts the values given the matrix to predict.</p>
-
-
-  <div class='pre p1 fill-light mt0'>predict(toPredict: (Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>toPredict</span> <code class='quiet'>((Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
-        predictions
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='train'>
-      train
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/2b508f989d37f002ddaf15c27cab8b9503f8c7c4/src/DecisionTreeRegression.js#L38-L44'>
-      <span>src/DecisionTreeRegression.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Train the decision tree with the given training set and values.</p>
-
-
-  <div class='pre p1 fill-light mt0'>train(trainingSet: (Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>), trainingValues: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>trainingSet</span> <code class='quiet'>((Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>trainingValues</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
     <h3 class='fl m0' id='constructor'>
       constructor
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/2b508f989d37f002ddaf15c27cab8b9503f8c7c4/src/DecisionTreeRegression.js#L22-L31'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/ae8cd072c8b77f9c440b59fe3a8522e691aeb1ff/src/DecisionTreeRegression.js#L22-L31'>
       <span>src/DecisionTreeRegression.js</span>
       </a>
     
@@ -866,12 +663,215 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='predict'>
+      predict
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/ae8cd072c8b77f9c440b59fe3a8522e691aeb1ff/src/DecisionTreeRegression.js#L51-L61'>
+      <span>src/DecisionTreeRegression.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Predicts the values given the matrix to predict.</p>
+
+
+  <div class='pre p1 fill-light mt0'>predict(toPredict: (Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>toPredict</span> <code class='quiet'>((Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
+        predictions
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='tojson'>
+      toJSON
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/ae8cd072c8b77f9c440b59fe3a8522e691aeb1ff/src/DecisionTreeRegression.js#L67-L73'>
+      <span>src/DecisionTreeRegression.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Export the current model to JSON.</p>
+
+
+  <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        Current model.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='train'>
+      train
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/ae8cd072c8b77f9c440b59fe3a8522e691aeb1ff/src/DecisionTreeRegression.js#L38-L44'>
+      <span>src/DecisionTreeRegression.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Train the decision tree with the given training set and values.</p>
+
+
+  <div class='pre p1 fill-light mt0'>train(trainingSet: (Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>), trainingValues: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trainingSet</span> <code class='quiet'>((Matrix | MatrixTransposeView | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trainingValues</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='load'>
       load
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/2b508f989d37f002ddaf15c27cab8b9503f8c7c4/src/DecisionTreeRegression.js#L80-L86'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/decision-tree-cart/blob/ae8cd072c8b77f9c440b59fe3a8522e691aeb1ff/src/DecisionTreeRegression.js#L80-L86'>
       <span>src/DecisionTreeRegression.js</span>
       </a>
     
