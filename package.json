@@ -4,10 +4,10 @@
   "description": "CART decision tree algorithm",
   "main": "lib/index.js",
   "module": "src/index.js",
-  "directories": {
-    "lib": "src",
-    "test": "test"
-  },
+  "files": [
+    "lib",
+    "src"
+  ],
   "scripts": {
     "eslint": "eslint src",
     "eslint-fix": "npm run eslint -- --fix",
