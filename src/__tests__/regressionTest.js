@@ -1,4 +1,5 @@
 import {DecisionTreeRegression as DTRegression} from '..';
+import Matrix from 'ml-matrix';
 
 var x = new Array(100);
 var y = new Array(100);
@@ -27,6 +28,16 @@ describe('Decision tree regression', () => {
         var newEstimations = newClassifier.predict(x);
 
         expect(newEstimations).toEqual(estimations);
+    });
+
+    test('Check transpose view', () => {
+        x = Matrix.rowVector(x);
+        x = x.transposeView();
+
+        var output = reg.predict(x);
+        for (var i = 0; i < output.length; ++i) {
+            expect(output[i]).toBeCloseTo(y[i], 0);
+        }
     });
 });
 

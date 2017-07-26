@@ -1,5 +1,6 @@
 import irisDataset from 'ml-dataset-iris';
 import {DecisionTreeClassifier as DTClassifier} from '..';
+import Matrix from 'ml-matrix';
 
 var trainingSet = irisDataset.getNumbers();
 var predictions = irisDataset.getClasses().map(elem => irisDataset.getDistinctClasses().indexOf(elem));
@@ -32,5 +33,20 @@ describe('Decision Tree Classifier', () => {
         var newResult = newClassifier.predict(trainingSet);
 
         expect(newResult).toEqual(result);
+    });
+
+    test('Check matrix transpose view', () => {
+        var x = Matrix.checkMatrix(trainingSet).transpose();
+        x = x.transposeView();
+
+        var output = classifier.predict(x);
+
+        var correct = 0;
+        for (var i = 0; i < output.length; ++i) {
+            if (output[i] === predictions[i]) correct++;
+        }
+
+        var score = correct / output.length;
+        expect(score).toBeGreaterThanOrEqual(0.7);
     });
 });

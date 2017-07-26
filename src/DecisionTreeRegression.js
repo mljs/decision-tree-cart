@@ -49,7 +49,7 @@ export default class DecisionTreeRegression {
      * @return {Array} predictions
      */
     predict(toPredict) {
-        if (toPredict[0].length === undefined) toPredict = Matrix.columnVector(toPredict);
+        if (toPredict[0] !== undefined && toPredict[0].length === undefined) toPredict = Matrix.columnVector(toPredict);
         toPredict = Matrix.checkMatrix(toPredict);
 
         var predictions = new Array(toPredict.rows);
