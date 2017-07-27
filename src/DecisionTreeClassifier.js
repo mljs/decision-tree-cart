@@ -8,7 +8,7 @@ const defaultOptions = {
     maxDepth: Infinity
 };
 
-export default class DecisionTreeClassifier {
+export class DecisionTreeClassifier {
 
     /**
      * Create new Decision Tree Classifier with CART implementation with the given options
