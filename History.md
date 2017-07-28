@@ -1,3 +1,14 @@
+<a name="1.0.8"></a>
+## [1.0.8](https://github.com/mljs/decision-tree-cart/compare/v1.0.6...v1.0.8) (2017-07-28)
+
+
+### Bug Fixes
+
+* remove exports and don't export as object ([#8](https://github.com/mljs/decision-tree-cart/issues/8)) ([4ceff09](https://github.com/mljs/decision-tree-cart/commit/4ceff09)), closes [#7](https://github.com/mljs/decision-tree-cart/issues/7)
+* remove separate exports to one export to fix bug on import ([ac5ee58](https://github.com/mljs/decision-tree-cart/commit/ac5ee58))
+
+
+
 <a name="1.0.7"></a>
 ## [1.0.7](https://github.com/mljs/decision-tree-cart/compare/v1.0.6...v1.0.7) (2017-07-26)
 
