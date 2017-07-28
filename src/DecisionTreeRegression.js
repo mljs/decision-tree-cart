@@ -8,7 +8,7 @@ const defaultOptions = {
     maxDepth: Infinity
 };
 
-export default class DecisionTreeRegression {
+export class DecisionTreeRegression {
 
     /**
      * Create new Decision Tree Regression with CART implementation with the given options.
@@ -85,5 +85,3 @@ export default class DecisionTreeRegression {
         return new DecisionTreeRegression(true, model);
     }
 }
-
-module.exports = DecisionTreeRegression;
