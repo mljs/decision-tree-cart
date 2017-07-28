@@ -9,9 +9,51 @@ Decision trees using CART implementation.
 
 ## Installation
 
-`npm install ml-cart`
+`npm install --save ml-cart`
 
-## [Documentation](http://mljs.github.io/decision-tree-cart/)
+## Usage
+### As a classifier
+
+```js
+import irisDataset from 'ml-dataset-iris';
+import {DecisionTreeClassifier as DTClassifier} from 'ml-cart';
+
+var trainingSet = irisDataset.getNumbers();
+var predictions = irisDataset.getClasses().map(
+    (elem) => irisDataset.getDistinctClasses().indexOf(elem)
+);
+
+var options = {
+    gainFunction: 'gini',
+    maxDepth: 10,
+    minNumSamples: 3
+};
+
+var classifier = new DTClassifier(options);
+classifier.train(trainingSet, predictions);
+var result = classifier.predict(trainingSet);
+```
+
+### As a regression
+
+```js
+import {DecisionTreeRegression as DTRegression} from 'ml-cart';
+
+var x = new Array(100);
+var y = new Array(100);
+var val = 0.0;
+for (var i = 0; i < x.length; ++i) {
+    x[i] = val;
+    y[i] = Math.sin(x[i]);
+    val += 0.01;
+}
+
+var reg = new DTRegression();
+reg.train(x, y);
+var estimations = reg.predict(x);
+```
+
+## [API documentation](http://mljs.github.io/decision-tree-cart/)
 
 ## License
 
