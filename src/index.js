@@ -1,2 +1,2 @@
-export {DecisionTreeClassifier} from './DecisionTreeClassifier';
-export {DecisionTreeRegression} from './DecisionTreeRegression';
+export { DecisionTreeClassifier } from './DecisionTreeClassifier';
+export { DecisionTreeRegression } from './DecisionTreeRegression';
