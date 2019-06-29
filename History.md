@@ -1,3 +1,17 @@
+# [2.0.0](https://github.com/mljs/decision-tree-cart/compare/v1.0.8...v2.0.0) (2019-06-29)
+
+
+### chore
+
+* update dependencies and remove support for Node.js 6 ([f3bb07c](https://github.com/mljs/decision-tree-cart/commit/f3bb07c))
+
+
+### BREAKING CHANGES
+
+* Node.js 6 is no longer supported.
+
+
+
 <a name="1.0.8"></a>
 ## [1.0.8](https://github.com/mljs/decision-tree-cart/compare/v1.0.6...v1.0.8) (2017-07-28)
 
