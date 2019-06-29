@@ -46,7 +46,7 @@ export default class TreeNode {
     var maxValue;
 
     for (var i = 0; i < XTranspose.rows; ++i) {
-      var currentFeature = XTranspose[i];
+      var currentFeature = XTranspose.getRow(i);
       var splitValues = this.featureSplit(currentFeature, y);
       for (var j = 0; j < splitValues.length; ++j) {
         var currentSplitVal = splitValues[j];

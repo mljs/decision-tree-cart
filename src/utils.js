@@ -31,7 +31,7 @@ export function giniImpurity(array) {
   var probabilities = toDiscreteDistribution(
     array,
     getNumberOfClasses(array)
-  )[0];
+  ).getRow(0);
 
   var sum = 0.0;
   for (var i = 0; i < probabilities.length; ++i) {
@@ -68,7 +68,7 @@ export function giniGain(array, splitted) {
   for (var i = 0; i < splits.length; ++i) {
     var currentSplit = splitted[splits[i]];
     splitsImpurity +=
-      giniImpurity(currentSplit) * currentSplit.length / array.length;
+      (giniImpurity(currentSplit) * currentSplit.length) / array.length;
   }
 
   return giniImpurity(array) - splitsImpurity;
@@ -128,11 +128,11 @@ export function matrixSplitter(X, y, column, value) {
   var greaterY = [];
 
   for (var i = 0; i < X.rows; ++i) {
-    if (X[i][column] < value) {
-      lesserX.push(X[i]);
+    if (X.get(i, column) < value) {
+      lesserX.push(X.getRow(i));
       lesserY.push(y[i]);
     } else {
-      greaterX.push(X[i]);
+      greaterX.push(X.getRow(i));
       greaterY.push(y[i]);
     }
   }
