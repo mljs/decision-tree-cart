@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/mljs/decision-tree-cart/compare/v2.0.0...v2.0.1) (2019-10-13)
+
+
+### Bug Fixes
+
+* correct bug on number of classes calculation ([#10](https://github.com/mljs/decision-tree-cart/issues/10)) ([1f0d853](https://github.com/mljs/decision-tree-cart/commit/1f0d853d411354c0fba966a62a11268e2f9e7771))
+
+
+
 # [2.0.0](https://github.com/mljs/decision-tree-cart/compare/v1.0.8...v2.0.0) (2019-06-29)
 
 
