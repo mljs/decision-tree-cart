@@ -5,11 +5,11 @@ import * as Utils from './utils';
 
 const gainFunctions = {
   gini: Utils.giniGain,
-  regression: Utils.regressionError
+  regression: Utils.regressionError,
 };
 
 const splitFunctions = {
-  mean: Utils.mean
+  mean: Utils.mean,
 };
 
 export default class TreeNode {
@@ -39,20 +39,20 @@ export default class TreeNode {
     // Depending in the node tree class, we set the variables to check information gain (to classify)
     // or error (for regression)
 
-    var bestGain = this.kind === 'classifier' ? -Infinity : Infinity;
-    var check = this.kind === 'classifier' ? (a, b) => a > b : (a, b) => a < b;
+    let bestGain = this.kind === 'classifier' ? -Infinity : Infinity;
+    let check = this.kind === 'classifier' ? (a, b) => a > b : (a, b) => a < b;
 
-    var maxColumn;
-    var maxValue;
+    let maxColumn;
+    let maxValue;
 
-    for (var i = 0; i < XTranspose.rows; ++i) {
-      var currentFeature = XTranspose.getRow(i);
-      var splitValues = this.featureSplit(currentFeature, y);
-      for (var j = 0; j < splitValues.length; ++j) {
-        var currentSplitVal = splitValues[j];
-        var splitted = this.split(currentFeature, y, currentSplitVal);
+    for (let i = 0; i < XTranspose.rows; ++i) {
+      let currentFeature = XTranspose.getRow(i);
+      let splitValues = this.featureSplit(currentFeature, y);
+      for (let j = 0; j < splitValues.length; ++j) {
+        let currentSplitVal = splitValues[j];
+        let splitted = this.split(currentFeature, y, currentSplitVal);
 
-        var gain = gainFunctions[this.gainFunction](y, splitted);
+        let gain = gainFunctions[this.gainFunction](y, splitted);
         if (check(gain, bestGain)) {
           maxColumn = i;
           maxValue = currentSplitVal;
@@ -64,7 +64,7 @@ export default class TreeNode {
     return {
       maxGain: bestGain,
       maxColumn: maxColumn,
-      maxValue: maxValue
+      maxValue: maxValue,
     };
   }
 
@@ -77,10 +77,10 @@ export default class TreeNode {
    * @return {object}
    */
   split(x, y, splitValue) {
-    var lesser = [];
-    var greater = [];
+    let lesser = [];
+    let greater = [];
 
-    for (var i = 0; i < x.length; ++i) {
+    for (let i = 0; i < x.length; ++i) {
       if (x[i] < splitValue) {
         lesser.push(y[i]);
       } else {
@@ -90,7 +90,7 @@ export default class TreeNode {
 
     return {
       greater: greater,
-      lesser: lesser
+      lesser: lesser,
     };
   }
 
@@ -102,16 +102,16 @@ export default class TreeNode {
    * @return {Array} possible split values.
    */
   featureSplit(x, y) {
-    var splitValues = [];
-    var arr = Utils.zip(x, y);
-    arr.sort(function (a, b) {
+    let splitValues = [];
+    let arr = Utils.zip(x, y);
+    arr.sort(function(a, b) {
       return a[0] - b[0];
     });
 
-    for (var i = 1; i < arr.length; ++i) {
+    for (let i = 1; i < arr.length; ++i) {
       if (arr[i - 1][1] !== arr[i][1]) {
         splitValues.push(
-          splitFunctions[this.splitFunction](arr[i - 1][0], arr[i][0])
+          splitFunctions[this.splitFunction](arr[i - 1][0], arr[i][0]),
         );
       }
     }
@@ -128,7 +128,7 @@ export default class TreeNode {
     if (this.kind === 'classifier') {
       this.distribution = Utils.toDiscreteDistribution(
         y,
-        Utils.getNumberOfClasses(y)
+        Utils.getNumberOfClasses(y),
       );
       if (this.distribution.columns === 0) {
         throw new TypeError('Error on calculate the prediction');
@@ -155,18 +155,18 @@ export default class TreeNode {
     }
     if (parentGain === undefined) parentGain = 0.0;
 
-    var XTranspose = X.transpose();
-    var split = this.bestSplit(XTranspose, y);
+    let XTranspose = X.transpose();
+    let split = this.bestSplit(XTranspose, y);
 
     this.splitValue = split.maxValue;
     this.splitColumn = split.maxColumn;
     this.gain = split.maxGain;
 
-    var splittedMatrix = Utils.matrixSplitter(
+    let splittedMatrix = Utils.matrixSplitter(
       X,
       y,
       this.splitColumn,
-      this.splitValue
+      this.splitValue,
     );
 
     if (
@@ -177,20 +177,20 @@ export default class TreeNode {
       this.left = new TreeNode(this);
       this.right = new TreeNode(this);
 
-      var lesserX = new Matrix(splittedMatrix.lesserX);
-      var greaterX = new Matrix(splittedMatrix.greaterX);
+      let lesserX = new Matrix(splittedMatrix.lesserX);
+      let greaterX = new Matrix(splittedMatrix.greaterX);
 
       this.left.train(
         lesserX,
         splittedMatrix.lesserY,
         currentDepth + 1,
-        this.gain
+        this.gain,
       );
       this.right.train(
         greaterX,
         splittedMatrix.greaterY,
         currentDepth + 1,
-        this.gain
+        this.gain,
       );
     } else {
       this.calculatePrediction(y);

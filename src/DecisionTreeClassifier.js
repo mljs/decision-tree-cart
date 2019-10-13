@@ -6,7 +6,7 @@ const defaultOptions = {
   gainFunction: 'gini',
   splitFunction: 'mean',
   minNumSamples: 3,
-  maxDepth: Infinity
+  maxDepth: Infinity,
 };
 
 export class DecisionTreeClassifier {
@@ -49,9 +49,9 @@ export class DecisionTreeClassifier {
    */
   predict(toPredict) {
     toPredict = Matrix.checkMatrix(toPredict);
-    var predictions = new Array(toPredict.rows);
+    let predictions = new Array(toPredict.rows);
 
-    for (var i = 0; i < toPredict.rows; ++i) {
+    for (let i = 0; i < toPredict.rows; ++i) {
       predictions[i] = this.root
         .classify(toPredict.getRow(i))
         .maxRowIndex(0)[1];
@@ -68,7 +68,7 @@ export class DecisionTreeClassifier {
     return {
       options: this.options,
       root: this.root,
-      name: 'DTClassifier'
+      name: 'DTClassifier',
     };
   }
 

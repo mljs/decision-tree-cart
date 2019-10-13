@@ -6,7 +6,7 @@ const defaultOptions = {
   gainFunction: 'regression',
   splitFunction: 'mean',
   minNumSamples: 3,
-  maxDepth: Infinity
+  maxDepth: Infinity,
 };
 
 export class DecisionTreeRegression {
@@ -38,7 +38,10 @@ export class DecisionTreeRegression {
   train(trainingSet, trainingValues) {
     this.root = new Tree(this.options);
 
-    if (typeof trainingSet[0] !== 'undefined' && trainingSet[0].length === undefined) {
+    if (
+      typeof trainingSet[0] !== 'undefined' &&
+      trainingSet[0].length === undefined
+    ) {
       trainingSet = Matrix.columnVector(trainingSet);
     } else {
       trainingSet = Matrix.checkMatrix(trainingSet);
@@ -52,13 +55,16 @@ export class DecisionTreeRegression {
    * @return {Array} predictions
    */
   predict(toPredict) {
-    if (typeof toPredict[0] !== 'undefined' && toPredict[0].length === undefined) {
+    if (
+      typeof toPredict[0] !== 'undefined' &&
+      toPredict[0].length === undefined
+    ) {
       toPredict = Matrix.columnVector(toPredict);
     }
     toPredict = Matrix.checkMatrix(toPredict);
 
-    var predictions = new Array(toPredict.rows);
-    for (var i = 0; i < toPredict.rows; ++i) {
+    let predictions = new Array(toPredict.rows);
+    for (let i = 0; i < toPredict.rows; ++i) {
       predictions[i] = this.root.classify(toPredict.getRow(i));
     }
 
@@ -73,7 +79,7 @@ export class DecisionTreeRegression {
     return {
       options: this.options,
       root: this.root,
-      name: 'DTRegression'
+      name: 'DTRegression',
     };
   }
 

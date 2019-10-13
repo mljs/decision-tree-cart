@@ -3,53 +3,51 @@ import Matrix, { MatrixTransposeView } from 'ml-matrix';
 
 import { DecisionTreeClassifier as DTClassifier } from '..';
 
-var trainingSet = irisDataset.getNumbers();
-var predictions = irisDataset
+let trainingSet = irisDataset.getNumbers();
+let predictions = irisDataset
   .getClasses()
   .map((elem) => irisDataset.getDistinctClasses().indexOf(elem));
 
-var options = {
+let options = {
   gainFunction: 'gini',
   maxDepth: 10,
-  minNumSamples: 3
+  minNumSamples: 3,
 };
 
-var classifier = new DTClassifier(options);
+let classifier = new DTClassifier(options);
 classifier.train(trainingSet, predictions);
-var result = classifier.predict(trainingSet);
+let result = classifier.predict(trainingSet);
 
 describe('Decision Tree Classifier', () => {
   it('Decision Tree classifier with iris dataset', () => {
-    var correct = 0;
-    for (var i = 0; i < result.length; ++i) {
-      if (result[i] === predictions[i]) correct++;
-    }
+    const correct = result.reduce((prev, value, index) => {
+      return value === predictions[index] ? prev + 1 : prev;
+    }, 0);
 
-    var score = correct / result.length;
+    let score = correct / result.length;
     expect(score).toBeGreaterThanOrEqual(0.7);
   });
 
   it('Export and import for decision tree classifier', () => {
-    var model = JSON.parse(JSON.stringify(classifier));
+    let model = JSON.parse(JSON.stringify(classifier));
 
-    var newClassifier = DTClassifier.load(model);
-    var newResult = newClassifier.predict(trainingSet);
+    let newClassifier = DTClassifier.load(model);
+    let newResult = newClassifier.predict(trainingSet);
 
     expect(newResult).toStrictEqual(result);
   });
 
   it('Check matrix transpose view', () => {
-    var x = Matrix.checkMatrix(trainingSet).transpose();
+    let x = Matrix.checkMatrix(trainingSet).transpose();
     x = new MatrixTransposeView(x);
 
-    var output = classifier.predict(x);
+    let output = classifier.predict(x);
 
-    var correct = 0;
-    for (var i = 0; i < output.length; ++i) {
-      if (output[i] === predictions[i]) correct++;
-    }
+    const correct = output.reduce((prev, value, index) => {
+      return value === predictions[index] ? prev + 1 : prev;
+    }, 0);
 
-    var score = correct / output.length;
+    let score = correct / output.length;
     expect(score).toBeGreaterThanOrEqual(0.7);
   });
 });

@@ -39,17 +39,19 @@
   },
   "homepage": "https://github.com/mljs/decision-tree-cart",
   "devDependencies": {
-    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
-    "eslint": "^6.0.1",
-    "eslint-config-cheminfo": "^1.20.1",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-jest": "^22.7.1",
-    "jest": "^24.8.0",
-    "ml-dataset-iris": "^1.0.0",
-    "rollup": "^1.16.3"
+    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
+    "eslint": "^6.5.1",
+    "eslint-config-cheminfo": "^2.0.3",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.19.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.9.0",
+    "ml-dataset-iris": "^1.1.1",
+    "prettier": "^1.18.2",
+    "rollup": "^1.23.1"
   },
   "dependencies": {
-    "ml-array-mean": "^1.1.1",
-    "ml-matrix": "^6.1.2"
+    "ml-array-mean": "^1.1.2",
+    "ml-matrix": "^6.4.1"
   }
 }

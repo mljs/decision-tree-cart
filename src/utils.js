@@ -9,8 +9,8 @@ import meanArray from 'ml-array-mean';
  * @return {Matrix} - rowVector of probabilities.
  */
 export function toDiscreteDistribution(array, numberOfClasses) {
-  var counts = new Array(numberOfClasses).fill(0);
-  for (var i = 0; i < array.length; ++i) {
+  let counts = new Array(numberOfClasses).fill(0);
+  for (let i = 0; i < array.length; ++i) {
     counts[array[i]] += 1 / array.length;
   }
 
@@ -28,13 +28,13 @@ export function giniImpurity(array) {
     return 0;
   }
 
-  var probabilities = toDiscreteDistribution(
+  let probabilities = toDiscreteDistribution(
     array,
-    getNumberOfClasses(array)
+    getNumberOfClasses(array),
   ).getRow(0);
 
-  var sum = 0.0;
-  for (var i = 0; i < probabilities.length; ++i) {
+  let sum = 0.0;
+  for (let i = 0; i < probabilities.length; ++i) {
     sum += probabilities[i] * probabilities[i];
   }
 
@@ -48,9 +48,12 @@ export function giniImpurity(array) {
  * @return {number} Number of classes.
  */
 export function getNumberOfClasses(array) {
-  return array.filter(function (val, i, arr) {
-    return arr.indexOf(val) === i;
-  }).map((val) => val + 1).reduce((a, b) => Math.max(a, b));
+  return array
+    .filter(function(val, i, arr) {
+      return arr.indexOf(val) === i;
+    })
+    .map((val) => val + 1)
+    .reduce((a, b) => Math.max(a, b));
 }
 
 /**
@@ -62,11 +65,11 @@ export function getNumberOfClasses(array) {
  */
 
 export function giniGain(array, splitted) {
-  var splitsImpurity = 0.0;
-  var splits = ['greater', 'lesser'];
+  let splitsImpurity = 0.0;
+  let splits = ['greater', 'lesser'];
 
-  for (var i = 0; i < splits.length; ++i) {
-    var currentSplit = splitted[splits[i]];
+  for (let i = 0; i < splits.length; ++i) {
+    let currentSplit = splitted[splits[i]];
     splitsImpurity +=
       (giniImpurity(currentSplit) * currentSplit.length) / array.length;
   }
@@ -81,17 +84,17 @@ export function giniGain(array, splitted) {
  * @return {number} squared error.
  */
 export function squaredError(array) {
-  var l = array.length;
+  let l = array.length;
 
-  var m = meanArray(array);
-  var squaredError = 0.0;
+  let m = meanArray(array);
+  let error = 0.0;
 
-  for (var i = 0; i < l; ++i) {
-    var currentElement = array[i];
-    squaredError += (currentElement - m) * (currentElement - m);
+  for (let i = 0; i < l; ++i) {
+    let currentElement = array[i];
+    error += (currentElement - m) * (currentElement - m);
   }
 
-  return squaredError;
+  return error;
 }
 
 /**
@@ -102,11 +105,11 @@ export function squaredError(array) {
  * @return {number} - sum of squared errors.
  */
 export function regressionError(array, splitted) {
-  var error = 0.0;
-  var splits = ['greater', 'lesser'];
+  let error = 0.0;
+  let splits = ['greater', 'lesser'];
 
-  for (var i = 0; i < splits.length; ++i) {
-    var currentSplit = splitted[splits[i]];
+  for (let i = 0; i < splits.length; ++i) {
+    let currentSplit = splitted[splits[i]];
     error += squaredError(currentSplit);
   }
   return error;
@@ -122,12 +125,12 @@ export function regressionError(array, splitted) {
  * @return {object} - Object that contains the splitted values.
  */
 export function matrixSplitter(X, y, column, value) {
-  var lesserX = [];
-  var greaterX = [];
-  var lesserY = [];
-  var greaterY = [];
+  let lesserX = [];
+  let greaterX = [];
+  let lesserY = [];
+  let greaterY = [];
 
-  for (var i = 0; i < X.rows; ++i) {
+  for (let i = 0; i < X.rows; ++i) {
     if (X.get(i, column) < value) {
       lesserX.push(X.getRow(i));
       lesserY.push(y[i]);
@@ -141,7 +144,7 @@ export function matrixSplitter(X, y, column, value) {
     greaterX: greaterX,
     greaterY: greaterY,
     lesserX: lesserX,
-    lesserY: lesserY
+    lesserY: lesserY,
   };
 }
 
@@ -166,14 +169,12 @@ export function mean(a, b) {
 export function zip(a, b) {
   if (a.length !== b.length) {
     throw new TypeError(
-      `Error on zip: the size of a: ${a.length} is different from b: ${
-        b.length
-      }`
+      `Error on zip: the size of a: ${a.length} is different from b: ${b.length}`,
     );
   }
 
-  var ret = new Array(a.length);
-  for (var i = 0; i < a.length; ++i) {
+  let ret = new Array(a.length);
+  for (let i = 0; i < a.length; ++i) {
     ret[i] = [a[i], b[i]];
   }
 

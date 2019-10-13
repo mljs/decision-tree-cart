@@ -1,42 +1,35 @@
 import { DecisionTreeClassifier as DTClassifier } from '..';
 
-var classifier = new DTClassifier({
+let classifier = new DTClassifier({
   gainFunction: 'gini',
   maxDepth: 10,
-  minNumSamples: 1
+  minNumSamples: 1,
 });
 
 // Returns index of marked row
 
-var trainingSet = [
-  [1, 0, 0, 0],
-  [0, 1, 0, 0],
-  [0, 0, 1, 0],
-  [0, 0, 0, 1]
-];
+let trainingSet = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
 
-var predictions = [0, 1, 2, 3];
+let predictions = [0, 1, 2, 3];
 
 classifier.train(trainingSet, predictions);
 
-var result = classifier.predict(trainingSet);
+let result = classifier.predict(trainingSet);
 
 describe('Decision Tree Classifier', () => {
   it('Decision Tree classifier with simple dataset', () => {
-    var correct = 0;
-    for (var i = 0; i < result.length; ++i) {
-      if (result[i] === predictions[i]) correct++;
-    }
-
-    var score = correct / result.length;
+    const correct = result.reduce((prev, value, index) => {
+      return value === predictions[index] ? prev + 1 : prev;
+    }, 0);
+    let score = correct / result.length;
     expect(score).toBe(1.0);
   });
 
   it('Export and import for decision simple classifier', () => {
-    var model = JSON.parse(JSON.stringify(classifier));
+    let model = JSON.parse(JSON.stringify(classifier));
 
-    var newClassifier = DTClassifier.load(model);
-    var newResult = newClassifier.predict(trainingSet);
+    let newClassifier = DTClassifier.load(model);
+    let newResult = newClassifier.predict(trainingSet);
 
     expect(newResult).toStrictEqual(result);
   });
