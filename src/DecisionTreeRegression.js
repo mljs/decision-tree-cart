@@ -38,10 +38,11 @@ export class DecisionTreeRegression {
   train(trainingSet, trainingValues) {
     this.root = new Tree(this.options);
 
-    if (trainingSet[0].length === undefined) {
+    if (typeof trainingSet[0] !== 'undefined' && trainingSet[0].length === undefined) {
       trainingSet = Matrix.columnVector(trainingSet);
+    } else {
+      trainingSet = Matrix.checkMatrix(trainingSet);
     }
-    trainingSet = Matrix.checkMatrix(trainingSet);
     this.root.train(trainingSet, trainingValues, 0);
   }
 
@@ -51,7 +52,7 @@ export class DecisionTreeRegression {
    * @return {Array} predictions
    */
   predict(toPredict) {
-    if (toPredict[0] !== undefined && toPredict[0].length === undefined) {
+    if (typeof toPredict[0] !== 'undefined' && toPredict[0].length === undefined) {
       toPredict = Matrix.columnVector(toPredict);
     }
     toPredict = Matrix.checkMatrix(toPredict);

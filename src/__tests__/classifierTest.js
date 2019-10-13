@@ -1,8 +1,7 @@
 import irisDataset from 'ml-dataset-iris';
+import Matrix, { MatrixTransposeView } from 'ml-matrix';
 
 import { DecisionTreeClassifier as DTClassifier } from '..';
-
-import Matrix from 'ml-matrix';
 
 var trainingSet = irisDataset.getNumbers();
 var predictions = irisDataset
@@ -20,7 +19,7 @@ classifier.train(trainingSet, predictions);
 var result = classifier.predict(trainingSet);
 
 describe('Decision Tree Classifier', () => {
-  test('Decision Tree classifier with iris dataset', () => {
+  it('Decision Tree classifier with iris dataset', () => {
     var correct = 0;
     for (var i = 0; i < result.length; ++i) {
       if (result[i] === predictions[i]) correct++;
@@ -30,18 +29,18 @@ describe('Decision Tree Classifier', () => {
     expect(score).toBeGreaterThanOrEqual(0.7);
   });
 
-  test('Export and import for decision tree classifier', () => {
+  it('Export and import for decision tree classifier', () => {
     var model = JSON.parse(JSON.stringify(classifier));
 
     var newClassifier = DTClassifier.load(model);
     var newResult = newClassifier.predict(trainingSet);
 
-    expect(newResult).toEqual(result);
+    expect(newResult).toStrictEqual(result);
   });
 
-  test('Check matrix transpose view', () => {
+  it('Check matrix transpose view', () => {
     var x = Matrix.checkMatrix(trainingSet).transpose();
-    x = x.transposeView();
+    x = new MatrixTransposeView(x);
 
     var output = classifier.predict(x);
 

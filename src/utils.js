@@ -31,7 +31,7 @@ export function giniImpurity(array) {
   var probabilities = toDiscreteDistribution(
     array,
     getNumberOfClasses(array)
-  )[0];
+  ).getRow(0);
 
   var sum = 0.0;
   for (var i = 0; i < probabilities.length; ++i) {
@@ -50,13 +50,13 @@ export function giniImpurity(array) {
 export function getNumberOfClasses(array) {
   return array.filter(function (val, i, arr) {
     return arr.indexOf(val) === i;
-  }).length;
+  }).map((val) => val + 1).reduce((a, b) => Math.max(a, b));
 }
 
 /**
  * @private
  * Calculates the Gini Gain of an array of predictions and those predictions splitted by a feature.
- * @para {Array} array - Predictions
+ * @param {Array} array - Predictions
  * @param {object} splitted - Object with elements "greater" and "lesser" that contains an array of predictions splitted.
  * @return {number} - Gini Gain.
  */
@@ -68,7 +68,7 @@ export function giniGain(array, splitted) {
   for (var i = 0; i < splits.length; ++i) {
     var currentSplit = splitted[splits[i]];
     splitsImpurity +=
-      giniImpurity(currentSplit) * currentSplit.length / array.length;
+      (giniImpurity(currentSplit) * currentSplit.length) / array.length;
   }
 
   return giniImpurity(array) - splitsImpurity;
@@ -128,11 +128,11 @@ export function matrixSplitter(X, y, column, value) {
   var greaterY = [];
 
   for (var i = 0; i < X.rows; ++i) {
-    if (X[i][column] < value) {
-      lesserX.push(X[i]);
+    if (X.get(i, column) < value) {
+      lesserX.push(X.getRow(i));
       lesserY.push(y[i]);
     } else {
-      greaterX.push(X[i]);
+      greaterX.push(X.getRow(i));
       greaterY.push(y[i]);
     }
   }

@@ -9,7 +9,7 @@ Decision trees using CART implementation.
 
 ## Installation
 
-`npm install --save ml-cart`
+`npm i ml-cart`
 
 ## [API documentation](http://mljs.github.io/decision-tree-cart/)
 
