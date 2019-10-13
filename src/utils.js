@@ -50,13 +50,13 @@ export function giniImpurity(array) {
 export function getNumberOfClasses(array) {
   return array.filter(function (val, i, arr) {
     return arr.indexOf(val) === i;
-  }).length;
+  }).map((val) => val + 1).reduce((a, b) => Math.max(a, b));
 }
 
 /**
  * @private
  * Calculates the Gini Gain of an array of predictions and those predictions splitted by a feature.
- * @para {Array} array - Predictions
+ * @param {Array} array - Predictions
  * @param {object} splitted - Object with elements "greater" and "lesser" that contains an array of predictions splitted.
  * @return {number} - Gini Gain.
  */

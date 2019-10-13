@@ -25,4 +25,10 @@ describe('Utils', () => {
       Utils.getNumberOfClasses([0, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     ).toBe(10);
   });
+
+  it('Get number of classes without the first class', () => {
+    expect(
+      Utils.getNumberOfClasses([1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    ).toBe(10);
+  });
 });
