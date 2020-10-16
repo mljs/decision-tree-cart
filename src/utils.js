@@ -85,6 +85,7 @@ export function giniGain(array, splitted) {
  */
 export function squaredError(array) {
   let l = array.length;
+  if (l === 0) { return 0.0; }
 
   let m = meanArray(array);
   let error = 0.0;
