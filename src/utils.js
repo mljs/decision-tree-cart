@@ -49,7 +49,7 @@ export function giniImpurity(array) {
  */
 export function getNumberOfClasses(array) {
   return array
-    .filter(function(val, i, arr) {
+    .filter(function (val, i, arr) {
       return arr.indexOf(val) === i;
     })
     .map((val) => val + 1)
@@ -110,7 +110,8 @@ export function regressionError(array, splitted) {
 
   for (let i = 0; i < splits.length; ++i) {
     let currentSplit = splitted[splits[i]];
-    error += squaredError(currentSplit);
+    if (currentSplit.length > 0)
+      error += squaredError(currentSplit);
   }
   return error;
 }
