@@ -1,3 +1,5 @@
+# Changelog
+
 ### [2.0.2](https://github.com/mljs/decision-tree-cart/compare/v2.0.1...v2.0.2) (2020-10-18)
 
 
