@@ -1,5 +1,5 @@
-import Matrix from 'ml-matrix';
 import mean from 'ml-array-mean';
+import Matrix from 'ml-matrix';
 
 import * as Utils from './utils';
 
@@ -104,7 +104,7 @@ export default class TreeNode {
   featureSplit(x, y) {
     let splitValues = [];
     let arr = Utils.zip(x, y);
-    arr.sort(function(a, b) {
+    arr.sort(function (a, b) {
       return a[0] - b[0];
     });
 
@@ -171,8 +171,10 @@ export default class TreeNode {
 
     if (
       currentDepth < this.maxDepth &&
-      (this.gain > 0.01 && this.gain !== parentGain) &&
-      (splittedMatrix.lesserX.length > 0 && splittedMatrix.greaterX.length > 0)
+      this.gain > 0.01 &&
+      this.gain !== parentGain &&
+      splittedMatrix.lesserX.length > 0 &&
+      splittedMatrix.greaterX.length > 0
     ) {
       this.left = new TreeNode(this);
       this.right = new TreeNode(this);

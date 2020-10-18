@@ -8,7 +8,12 @@ let classifier = new DTClassifier({
 
 // Returns index of marked row
 
-let trainingSet = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
+let trainingSet = [
+  [1, 0, 0, 0],
+  [0, 1, 0, 0],
+  [0, 0, 1, 0],
+  [0, 0, 0, 1],
+];
 
 let predictions = [0, 1, 2, 3];
 

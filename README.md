@@ -1,8 +1,7 @@
 # ml-cart (Classification and regression trees)
 
 [![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
-[![Test coverage][codecov-image]][codecov-url]
+[![build status][ci-image]][ci-url]
 [![npm download][download-image]][download-url]
 
 Decision trees using CART implementation.
@@ -21,20 +20,20 @@ Decision trees using CART implementation.
 import irisDataset from 'ml-dataset-iris';
 import { DecisionTreeClassifier as DTClassifier } from 'ml-cart';
 
-var trainingSet = irisDataset.getNumbers();
-var predictions = irisDataset
+const trainingSet = irisDataset.getNumbers();
+const predictions = irisDataset
   .getClasses()
   .map((elem) => irisDataset.getDistinctClasses().indexOf(elem));
 
-var options = {
+const options = {
   gainFunction: 'gini',
   maxDepth: 10,
-  minNumSamples: 3
+  minNumSamples: 3,
 };
 
-var classifier = new DTClassifier(options);
+const classifier = new DTClassifier(options);
 classifier.train(trainingSet, predictions);
-var result = classifier.predict(trainingSet);
+const result = classifier.predict(trainingSet);
 ```
 
 ### As a regression
@@ -42,29 +41,27 @@ var result = classifier.predict(trainingSet);
 ```js
 import { DecisionTreeRegression as DTRegression } from 'ml-cart';
 
-var x = new Array(100);
-var y = new Array(100);
-var val = 0.0;
-for (var i = 0; i < x.length; ++i) {
+const x = new Array(100);
+const y = new Array(100);
+const val = 0.0;
+for (let i = 0; i < x.length; ++i) {
   x[i] = val;
   y[i] = Math.sin(x[i]);
   val += 0.01;
 }
 
-var reg = new DTRegression();
+const reg = new DTRegression();
 reg.train(x, y);
-var estimations = reg.predict(x);
+const estimations = reg.predict(x);
 ```
 
 ## License
 
 [MIT](./LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/ml-cart.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/ml-cart.svg
 [npm-url]: https://npmjs.org/package/ml-cart
-[travis-image]: https://img.shields.io/travis/mljs/decision-tree-cart/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/mljs/decision-tree-cart
-[codecov-image]: https://img.shields.io/codecov/c/github/mljs/decision-tree-cart.svg?style=flat-square
-[codecov-url]: https://codecov.io/github/mljs/decision-tree-cart
-[download-image]: https://img.shields.io/npm/dm/ml-cart.svg?style=flat-square
+[ci-image]: https://github.com/mljs/decision-tree-cart/workflows/Node.js%20CI/badge.svg?branch=master
+[ci-url]: https://github.com/mljs/decision-tree-cart/actions?query=workflow%3A%22Node.js+CI%22
+[download-image]: https://img.shields.io/npm/dm/ml-cart.svg
 [download-url]: https://npmjs.org/package/ml-cart
