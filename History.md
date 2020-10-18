@@ -1,3 +1,10 @@
+### [2.0.2](https://github.com/mljs/decision-tree-cart/compare/v2.0.1...v2.0.2) (2020-10-18)
+
+
+### Bug Fixes
+
+* do not error on empty array ([#12](https://github.com/mljs/decision-tree-cart/issues/12)) ([2e88dee](https://github.com/mljs/decision-tree-cart/commit/2e88dee928ea698376c01256504b51f04de49c98))
+
 ## [2.0.1](https://github.com/mljs/decision-tree-cart/compare/v2.0.0...v2.0.1) (2019-10-13)
 
 
