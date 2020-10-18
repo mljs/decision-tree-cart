@@ -49,7 +49,7 @@ export function giniImpurity(array) {
  */
 export function getNumberOfClasses(array) {
   return array
-    .filter(function(val, i, arr) {
+    .filter(function (val, i, arr) {
       return arr.indexOf(val) === i;
     })
     .map((val) => val + 1)
@@ -85,6 +85,7 @@ export function giniGain(array, splitted) {
  */
 export function squaredError(array) {
   let l = array.length;
+  if (l === 0) { return 0.0; }
 
   let m = meanArray(array);
   let error = 0.0;
