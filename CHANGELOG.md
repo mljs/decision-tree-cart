@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://www.github.com/mljs/decision-tree-cart/compare/v2.0.2...v2.1.0) (2021-07-30)
+
+
+### Features
+
+* configurable min gain to split ([#15](https://www.github.com/mljs/decision-tree-cart/issues/15)) ([7a5d32c](https://www.github.com/mljs/decision-tree-cart/commit/7a5d32c8c269517e49db8e7b2135a60e47a99d34))
+
 ### [2.0.2](https://github.com/mljs/decision-tree-cart/compare/v2.0.1...v2.0.2) (2020-10-18)
 
 
