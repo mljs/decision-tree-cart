@@ -7,6 +7,7 @@ const defaultOptions = {
   splitFunction: 'mean',
   minNumSamples: 3,
   maxDepth: Infinity,
+  gainThreshold: 0.01,
 };
 
 export class DecisionTreeClassifier {

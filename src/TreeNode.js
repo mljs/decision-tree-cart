@@ -26,6 +26,7 @@ export default class TreeNode {
     this.splitFunction = options.splitFunction;
     this.minNumSamples = options.minNumSamples;
     this.maxDepth = options.maxDepth;
+    this.gainThreshold = options.gainThreshold;
   }
 
   /**
@@ -171,7 +172,7 @@ export default class TreeNode {
 
     if (
       currentDepth < this.maxDepth &&
-      this.gain > 0.01 &&
+      this.gain > this.gainThreshold &&
       this.gain !== parentGain &&
       splittedMatrix.lesserX.length > 0 &&
       splittedMatrix.greaterX.length > 0
