@@ -26,7 +26,12 @@ export default class TreeNode {
     this.splitFunction = options.splitFunction;
     this.minNumSamples = options.minNumSamples;
     this.maxDepth = options.maxDepth;
-    this.gainThreshold = options.gainThreshold;
+
+    if(!options.gainThreshold) {
+      this.gainThreshold = 0;
+    } else {
+      this.gainThreshold = options.gainThreshold;
+    }
   }
 
   /**
@@ -45,6 +50,7 @@ export default class TreeNode {
 
     let maxColumn;
     let maxValue;
+    let numberSamples;
 
     for (let i = 0; i < XTranspose.rows; ++i) {
       let currentFeature = XTranspose.getRow(i);
@@ -58,6 +64,7 @@ export default class TreeNode {
           maxColumn = i;
           maxValue = currentSplitVal;
           bestGain = gain;
+          numberSamples = currentFeature.length
         }
       }
     }
@@ -66,6 +73,7 @@ export default class TreeNode {
       maxGain: bestGain,
       maxColumn: maxColumn,
       maxValue: maxValue,
+      numberSamples: numberSamples,
     };
   }
 
@@ -162,6 +170,7 @@ export default class TreeNode {
     this.splitValue = split.maxValue;
     this.splitColumn = split.maxColumn;
     this.gain = split.maxGain;
+    this.numberSamples = split.numberSamples;
 
     let splittedMatrix = Utils.matrixSplitter(
       X,
