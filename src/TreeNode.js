@@ -1,5 +1,5 @@
 import mean from 'ml-array-mean';
-import Matrix from 'ml-matrix';
+import { Matrix } from 'ml-matrix';
 
 import * as Utils from './utils';
 
@@ -27,7 +27,7 @@ export default class TreeNode {
     this.minNumSamples = options.minNumSamples;
     this.maxDepth = options.maxDepth;
 
-    if(!options.gainThreshold) {
+    if (!options.gainThreshold) {
       this.gainThreshold = 0;
     } else {
       this.gainThreshold = options.gainThreshold;
@@ -64,7 +64,7 @@ export default class TreeNode {
           maxColumn = i;
           maxValue = currentSplitVal;
           bestGain = gain;
-          numberSamples = currentFeature.length
+          numberSamples = currentFeature.length;
         }
       }
     }
@@ -113,7 +113,7 @@ export default class TreeNode {
   featureSplit(x, y) {
     let splitValues = [];
     let arr = Utils.zip(x, y);
-    arr.sort(function (a, b) {
+    arr.sort((a, b) => {
       return a[0] - b[0];
     });
 

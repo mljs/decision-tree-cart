@@ -1,12 +1,12 @@
-import irisDataset from 'ml-dataset-iris';
-import Matrix, { MatrixTransposeView } from 'ml-matrix';
+import { getClasses, getDistinctClasses, getNumbers } from 'ml-dataset-iris';
+import { Matrix, MatrixTransposeView } from 'ml-matrix';
 
 import { DecisionTreeClassifier as DTClassifier } from '..';
 
-let trainingSet = irisDataset.getNumbers();
-let predictions = irisDataset
-  .getClasses()
-  .map((elem) => irisDataset.getDistinctClasses().indexOf(elem));
+let trainingSet = getNumbers();
+let predictions = getClasses().map((elem) =>
+  getDistinctClasses().indexOf(elem),
+);
 
 let options = {
   gainFunction: 'gini',
