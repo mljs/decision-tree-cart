@@ -26,12 +26,7 @@ export default class TreeNode {
     this.splitFunction = options.splitFunction;
     this.minNumSamples = options.minNumSamples;
     this.maxDepth = options.maxDepth;
-
-    if (!options.gainThreshold) {
-      this.gainThreshold = 0;
-    } else {
-      this.gainThreshold = options.gainThreshold;
-    }
+  this.gainThreshold = options.gainThreshold || 0;
   }
 
   /**
