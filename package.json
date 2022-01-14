@@ -12,7 +12,9 @@
     "compile": "rollup -c",
     "eslint": "eslint src",
     "eslint-fix": "npm run eslint -- --fix",
-    "prepublishOnly": "npm run compile",
+    "prepack": "npm run compile",
+    "prettier": "prettier --check .",
+    "prettier-write": "prettier --write .",
     "test": "npm run test-coverage && npm run eslint",
     "test-only": "jest",
     "test-coverage": "jest --coverage"
@@ -51,12 +53,5 @@
   "dependencies": {
     "ml-array-mean": "^1.1.5",
     "ml-matrix": "^6.8.2"
-  },
-  "prettier": {
-    "arrowParens": "always",
-    "semi": true,
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "all"
   }
 }

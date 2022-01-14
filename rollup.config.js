@@ -2,7 +2,7 @@ export default {
   input: 'src/index.js',
   output: {
     file: 'cart.js',
-    format: 'cjs'
+    format: 'cjs',
   },
-  external: ['ml-matrix', 'ml-array-mean']
+  external: ['ml-matrix', 'ml-array-mean'],
 };
