@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.1.1](https://www.github.com/mljs/decision-tree-cart/compare/v2.1.0...v2.1.1) (2022-01-14)
+
+
+### Bug Fixes
+
+* changes to fix issues 9, 15, 17, 28, 32 in random-forest  ([#20](https://www.github.com/mljs/decision-tree-cart/issues/20)) ([134da30](https://www.github.com/mljs/decision-tree-cart/commit/134da308e72fa75de7846d26eeb24ec1e4974ffa))
+
 ## [2.1.0](https://www.github.com/mljs/decision-tree-cart/compare/v2.0.2...v2.1.0) (2021-07-30)
 
 
