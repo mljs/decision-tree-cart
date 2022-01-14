@@ -1,4 +1,4 @@
-import Matrix, { MatrixTransposeView } from 'ml-matrix';
+import { Matrix, MatrixTransposeView } from 'ml-matrix';
 
 import { DecisionTreeRegression as DTRegression } from '..';
 
